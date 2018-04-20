@@ -1,7 +1,7 @@
 # NCEP libraries for FV3 (NEMSfv3gfs trunk, April 2018)
 
-### Original version: Julie Schramm, NOAA
-### Last update: Dom Heinzeller, NOAA, 20180420
+#### Original version: Julie Schramm, NOAA
+#### Last update: Dom Heinzeller, NOAA, 20180420
 
 The original library sources are available from following websites:
 
@@ -17,32 +17,20 @@ Several files in w3nco/v2.0.6/src had to be patched for thread-safety,
 (OpenMP compilers), and for using the GNU compilers in general. Files in
 bacio/v2.0.1/src had to be extended with preprocessor flags for MACOSX.
 
-Building:
+#### Building:
 
-To build these libraries, users are advised to load the modules
-and set the environment variables as in the respective module file
-of NEMSfv3gfs (NEMSfv3gfs_top_dir/modulefiles/MACHINE.COMPILER/fv3).
-In addition, set the environment variable OPENMP to 1 for building
-thread-safe versions of all libraries (or 0 if OpenMP will not be
-used when compiling FV3), and the install destination for the NCEP
-libraries NCEPLIBS_DIR:
-
-> . ${NEMSfv3gfs_top_dir}/modulefiles/MACHINE.COMPILER/fv3
+To build these libraries, users are advised to load the same modules and
+set the environment variables (compilers and flags) as in the respective
+module file of NEMSfv3gfs (NEMSFV3GFS_DIR/modulefiles/SYSTEM.COMPILER/fv3).
 
 The libraries are built and installed with
 
-> export NCEPLIBS_DIR=INSTALL_DESTINATION_FOR_NCEPLIBS \# e.g. /usr/local/NCEPlibs
+> ./make_ncep_libs.sh -s MACHINE -c COMPILER -d NCEPLIBS_DIR -o OPENMP
 
-> export OPENMP=1 # or 0
+Further information on the command line arguments can be obtained with
 
-> ./make_ncep_libs.sh MACHINE.COMPILER 2>&1 | tee log.make
+> ./make_ncep_libs.sh -h
 
-> export -n NCEPLIBS_DIR
+The include files and libraries are installed to NCEPLIBS_DIR/{include,lib}
 
-> export -n OPENMP
-
-Cleaning:
-
-> ./make_ncep_libs.sh clean 
-
-will clean all *.a, *.mod and *.o files and remove the exec_* directories.
+To remove the installed libraries, simply delete the contents of NCEPLIBS_DIR.
