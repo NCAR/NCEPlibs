@@ -1,0 +1,4 @@
+export FC="crayftn"
+export FCFLAGS="-I. -O2 -G2 -ffree -J ."
+export LDFLAGS=" "
+export LIBS=" "
