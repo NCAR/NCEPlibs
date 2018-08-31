@@ -34,7 +34,7 @@ THIS_FILE=$(basename "$0" )
 #--------------------------------------------------------------
 # Define available options
 #--------------------------------------------------------------
-validsystems=( theia cheyenne macosx ubuntu )
+validsystems=( theia cheyenne macosx linux )
 validcompilers=( intel pgi gnu )
 validopenmpflags=( 0 1 )
 
