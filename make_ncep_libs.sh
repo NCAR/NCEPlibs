@@ -120,7 +120,8 @@ make || fail "An error occurred building the NCEP libraries"
 echo
 echo "Installing to ${NCEPLIBS_DST_DIR} ..."
 echo
-rm -fr ${NCEPLIBS_DST_DIR}/*
+rm -fr ${NCEPLIBS_DST_DIR}/lib
+rm -fr ${NCEPLIBS_DST_DIR}/include
 mkdir ${NCEPLIBS_DST_DIR}/lib
 mkdir ${NCEPLIBS_DST_DIR}/include
 cp -av ${BUILD_DIR}/include/* ${NCEPLIBS_DST_DIR}/include/
