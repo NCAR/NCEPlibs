@@ -17,7 +17,7 @@ LIBDIR   = ../../../..
 
 # The library name
 LIBRARY = lib$(tarname)_$(precision).a
-INC     = -I../../../sigio/v2.0.1/incmod
+INC     = -I../../../../include
 
 # The file definitions. This include must occur before targets.
 include make.filelist
