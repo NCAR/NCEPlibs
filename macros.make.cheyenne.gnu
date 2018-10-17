@@ -37,6 +37,10 @@ LAND_ARFLAGS  = crvs
 NEMSIO_FFLAGS  = $(OMPFLAGS) -O -g -fPIC
 NEMSIO_ARFLAGS = -rvu
 
+# Flags for sfcio library
+SFCIO_FFLAGS = -O2 -G2 -hbyteswapio -I$(INCMOD) -ffree
+SFCIO_ARFLAGS = -ruv
+
 # Flags for sigio library
 SIGIO_FFLAGS  = $(OMPFLAGS) -O0 -g -fbacktrace -ffree-form -fconvert=big-endian -c -fPIC
 SIGIO_ARFLAGS = crvs

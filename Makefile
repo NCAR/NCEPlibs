@@ -12,6 +12,7 @@ all:
 	$(MAKE) $(MAKEMINUSJ) -C src/w3nco/v2.0.6/src
 	$(MAKE) $(MAKEMINUSJ) -C src/nemsio/v2.2.3/src
 	$(MAKE) $(MAKEMINUSJ) -C src/landsfcutil/v2.1.0/src
+	$(MAKE) $(MAKEMINUSJ) -C src/sfcio/v1.0.0/src
 
 clean:
 	$(MAKE) -C src/bacio/v2.0.1/src  clean
@@ -22,3 +23,4 @@ clean:
 	$(MAKE) -C src/w3nco/v2.0.6/src clean
 	$(MAKE) -C src/nemsio/v2.2.3/src clean
 	$(MAKE) -C src/landsfcutil/v2.1.0/src clean
+	$(MAKE) -C src/sfcio/v1.0.0/src clean
