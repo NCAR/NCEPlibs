@@ -1,0 +1,17 @@
+#LIB	= ../libsfcio_v1.0.0_4.a
+#INCMOD	= ../include/sfcio_v1.0.0_4
+#FC	= $(FCS)
+ifeq ($(COMP),intel)
+	FFLAGS = -O3 -traceback -axCore-AVX2 -convert big_endian -assume byterecl -I$(INCMOD) -FR
+	FFLAGB = -O2 -traceback -g -xHOST -axCore-AVX2 -convert big_endian -assume byterecl 
+else
+	FFLAGS = -O2 -G2 -hbyteswapio -I$(INCMOD) -ffree
+endif
+
+
+$(LIB):	$(LIB)(sfcio_module.o)
+.f.a:
+	$(FC) -c $(FFLAGS) $<
+	$(AR) $(ARFLAGS) $@ $*.o
+	rm -f $*.o
+	mv *.mod $(INCMOD)
