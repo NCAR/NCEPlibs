@@ -12,6 +12,8 @@ http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/sigio/v2.0.1/
 http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/sp/v2.0.2/
 http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/w3nco/v2.0.6/
 http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/w3emc/v2.2.0/
+http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/nemsiogfs/v2.0.1/
+http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/landsfcutil/v2.1.0/
 
 Several files in w3nco/v2.0.6/src had to be patched for thread-safety,
 (OpenMP compilers), and for using the GNU compilers in general. Files in

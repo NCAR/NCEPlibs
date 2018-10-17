@@ -30,8 +30,8 @@ IP_FFLAGS     = $(OMPFLAGS) -O3 -fdefault-real-8 -fPIC
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library
-LAND_FFLAGS   = $(OMPFLAGS) -O3 -I$(MOD_DIR) -fdefault-real-8 -ffree-form -fPIC
-LAND_ARFLAGS  = -rv
+LAND_FFLAGS   = $(OMPFLAGS) -fdefault-real-8  -O3 -ffree-form -c
+LAND_ARFLAGS  = crvs
 
 # Flags for nemsio library
 NEMSIO_FFLAGS  = $(OMPFLAGS) -O -g -fPIC

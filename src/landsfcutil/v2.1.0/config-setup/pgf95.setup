@@ -1,7 +1,0 @@
-export FC="pgf95"
-export FCFLAGS=" \
- -g \
- -Mfree \
- -fast"
-export LDFLAGS=" "
-export LIBS=" "

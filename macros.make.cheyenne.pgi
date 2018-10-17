@@ -30,8 +30,8 @@ IP_FFLAGS     = $(OMPFLAGS) -traceback -O3 -Mipa=fast -Kieee -r8 -i4 -fPIC
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library
-LAND_FFLAGS   = $(OMPFLAGS) -traceback -O3 -I$(MOD_DIR) -Mipa=fast -Kieee -r8 -i4 -Mfree -fPIC
-LAND_ARFLAGS  = -rv
+LAND_FFLAGS   = $(OMPFLAGS) -r8 -g -Mfree -fast -c
+LAND_ARFLAGS  = crvs
 
 # Flags for nemsio library
 NEMSIO_FFLAGS  = $(OMPFLAGS) -O -g -traceback -fPIC

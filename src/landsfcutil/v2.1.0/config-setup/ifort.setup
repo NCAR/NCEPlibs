@@ -1,4 +1,0 @@
-export FC="ifort"
-export FCFLAGS="-O3 -fp-model strict -ip -FR -I. -module ."
-export LDFLAGS=" "
-export LIBS=" "
