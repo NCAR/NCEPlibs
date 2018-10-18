@@ -13,6 +13,7 @@ all:
 	$(MAKE) $(MAKEMINUSJ) -C src/nemsio/v2.2.3/src
 	$(MAKE) $(MAKEMINUSJ) -C src/landsfcutil/v2.1.0/src
 	$(MAKE) $(MAKEMINUSJ) -C src/sfcio/v1.0.0/src
+	$(MAKE) $(MAKEMINUSJ) -C src/nemsiogfs/v2.0.1/src # Depends on nemsio 2.0.1
 
 clean:
 	$(MAKE) -C src/bacio/v2.0.1/src  clean
@@ -24,3 +25,5 @@ clean:
 	$(MAKE) -C src/nemsio/v2.2.3/src clean
 	$(MAKE) -C src/landsfcutil/v2.1.0/src clean
 	$(MAKE) -C src/sfcio/v1.0.0/src clean
+	$(MAKE) -C src/nemsiogfs/v2.0.1/src clean # Depends on nemsio 2.0.1
+

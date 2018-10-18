@@ -1,9 +1,10 @@
+include ../../../../macros.make
 
-LIB     = $(LIBDIR)/libnemsiogfs_$(VER).a
-INCMOD  = $(LIBDIR)/$(INC)
+VER        = v2.0.1
+LIB        = ../../../../libnemsiogfs_$(VER).a
+INCMOD     = ../../../../include/
 
-FC      = $(FCOMP)
-FFLAGS  = $(FCFLAGS)
+FFLAGS  = $(NEMSIOGFS_FFLAGS)
 AR      = ar
 ARFLAGS = -rvu
 
@@ -12,17 +13,15 @@ MODULES  = nemsio_gfs.o
 $(LIB): $(MODULES)
 	$(AR) $(ARFLAGS) $@ $(MODULES)
 	mkdir -p $(INCMOD)
-	mkdir -p $(INCMOD)/nemsiogfs_$(VER)
-	mv *.mod $(INCMOD)/nemsiogfs_$(VER)
+	mv *.mod $(INCMOD)/
 	rm -f *.o
 
 clean:
-	mkdir -p $(INCMOD)/nemsiogfs_$(VER)
-	rm -f *.o *.mod *.a $(LIB) -r $(INCMOD)
+	rm -f *.o *.mod *.a $(LIB)
 
 .SUFFIXES:
 .SUFFIXES: .f90 .o
 
 .f90.o:
-	$(FC) $(FFLAGS) -c $*.f90
+	$(FC) $(FFLAGS) -I$(INCMOD) -c $*.f90
 
