@@ -1,0 +1,12 @@
+export FC="ifort"
+export FCFLAGS="-check all \
+ -traceback \
+ -fpe0 \
+ -ftrapuv \
+ -g \
+ -convert little_endian \
+ -assume byterecl \
+ -I. \
+ -openmp "
+export LDFLAGS=" "
+export LIBS=" "
