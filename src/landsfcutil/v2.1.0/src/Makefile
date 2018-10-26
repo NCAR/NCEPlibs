@@ -11,7 +11,7 @@ precision = d
 distdir   = $(tarname)_$(version)_$(precision)
 
 # Prefix-specific substitution variables
-prefix      = /gpfs/fs1/work/kavulich/FV3/rocoto_pp_workflow/ncep_lib_manual_make/code/landsfcutil/v2.1.0
+prefix      = ../ 
 
 # Mixed package and prefix substitution variables
 installdir  = $(prefix)/$(distdir)
