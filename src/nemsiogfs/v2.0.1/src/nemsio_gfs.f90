@@ -158,9 +158,9 @@ module nemsio_gfs
   end type nemsio_headv
 
   character(charkind),dimension(18) :: aero_tracername=(/      &
-      "du001","du002","du003","du004","du005",                 &
-      "ss001","ss002","ss003","ss004","ss005",                 &
-      "dms",  "so2",  "so4",  "msa",  "bcphobic",              &
+      "du001   ","du002   ","du003   ","du004   ","du005   ",  &
+      "ss001   ","ss002   ","ss003   ","ss004   ","ss005   ",  &
+      "dms     ","so2     ","so4     ","msa     ","bcphobic",  &
       "bcphilic","ocphobic","ocphilic"/)
 
 
@@ -450,7 +450,7 @@ contains
       gfsheadv%RECNAME((3+4*levso):(2+5*levso)) = 'o3mr'
       gfsheadv%RECNAME((3+5*levso):(2+6*levso)) = 'clwmr'
       do i=1,gfshead%ntrac-3
-        gfsheadv%RECNAME((3+(i+5)*levso):(2+(i+6)*levso)) = aero_tracername(i)
+        gfsheadv%RECNAME((3+(i+5)*levso):(2+(i+6)*levso)) = TRIM(aero_tracername(i))
       enddo
 !-----------------------
       else
@@ -466,7 +466,7 @@ contains
       gfsheadv%RECNAME((3+6*levso):(2+7*levso)) = 'o3mr'
       gfsheadv%RECNAME((3+7*levso):(2+8*levso)) = 'clwmr'
       do i=1,gfshead%ntrac-3
-        gfsheadv%RECNAME((3+(i+7)*levso):(2+(i+8)*levso)) = aero_tracername(i)
+        gfsheadv%RECNAME((3+(i+7)*levso):(2+(i+8)*levso)) = TRIM(aero_tracername(i))
       enddo
       if(gfshead%nrec>(2+(5+gfshead%ntrac)*levso)) then
         gfsheadv%RECNAME((3+(5+gfshead%ntrac)*levso):(2+(6+gfshead%ntrac)*levso)) = 'vvel'
@@ -2564,7 +2564,7 @@ contains
     jrec = 0
     nt = ntrclev/lm
     do n=1,mtrac-max(3,ntke)
-      vname = aero_tracername(n)
+      vname = TRIM(aero_tracername(n))
       call nemsio_searchrecv(gfile,jrec,trim(vname),'mid layer',1,iret=ierr)
       if (ierr == 0) then
          nt = nt + 1
@@ -2794,7 +2794,7 @@ contains
     jrec = 0
     nt = ntrclev/lm
     do n=1,mtrac-max(3,ntke)
-      vname = aero_tracername(n)
+      vname = TRIM(aero_tracername(n))
       call nemsio_searchrecv(gfile,jrec,trim(vname),'mid layer',1,iret=ierr)
       if (ierr == 0) then
         nt = nt + 1
@@ -3008,7 +3008,7 @@ contains
 !aerosol tracers
     nt=max(3,ntke)
     do n=1,mtrac-max(3,ntke)
-      vname = aero_tracername(n)
+      vname = TRIM(aero_tracername(n))
       call nemsio_searchrecv(gfile,jrec,trim(vname),'mid layer',1,iret=ierr)
       if (ierr == 0) then
         nt = nt + 1
@@ -3222,7 +3222,7 @@ contains
 !aerosol tracers
     nt = max(3,ntke)
     do n=1,mtrac-max(3,ntke)
-      vname = aero_tracername(n)
+      vname = TRIM(aero_tracername(n))
       call nemsio_searchrecv(gfile,jrec,trim(vname),'mid layer',1,iret=ierr)
       if (ierr == 0) then
         nt = nt + 1
