@@ -1,7 +1,7 @@
 include ../../../../macros.make
 
 LIB	= ../../../../libsfcio_v1.0.0_4.a
-INCMOD	= ../../../../include/sfcio_v1.0.0_4
+INCMOD	= ../../../../include/
 
 
 $(LIB):	$(LIB)(sfcio_module.o)

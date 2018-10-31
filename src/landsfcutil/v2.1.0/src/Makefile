@@ -6,8 +6,8 @@ include ../../../../macros.make
 # Package-specific substitution variables
 package = nceplibs landsfcutil
 version = v2.1.0
-tarname   = landsfcutil
 precision = d
+tarname   = landsfcutil_$(version)_$(precision)
 distdir   = $(tarname)_$(version)_$(precision)
 
 # Prefix-specific substitution variables
@@ -37,6 +37,7 @@ all: library
 $(LIBRARY): $(OBJ_FILES)
 	$(AR) $(ARFLAGS) $@ $(OBJ_FILES)
 	$(RANLIB) $@
+	mkdir -p ../../../../include/ 
 	cp *.mod ../../../../include/
 library: $(LIBRARY)
 
