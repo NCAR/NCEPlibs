@@ -26,7 +26,8 @@ GFSIO_FFLAGS  = $(OMPFLAGS) -traceback -g -xHOST -convert big_endian -assume byt
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
-IP_FFLAGS     = $(OMPFLAGS) -O3 -ip -fp-model strict -real-size 64 -integer-size 32 -fPIC
+IP_FFLAGS     = $(OMPFLAGS) -r8 -O3 -fp-model strict -ip -I. -convert little_endian -assume byterecl
+IP_FPPFLAGS   = -fpp -DLSIZE=d -save-temps
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library

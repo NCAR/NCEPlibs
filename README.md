@@ -6,7 +6,7 @@
 The original library sources are available from following websites:
 
 http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/bacio/v2.0.1/
-http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/ip/v2.0.0/
+http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/ip/v3.0.0/
 http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/nemsio/v2.2.3/
 http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/sigio/v2.0.1/
 http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/sp/v2.0.2/

@@ -27,6 +27,7 @@ GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
 IP_FFLAGS     = $(OMPFLAGS) -traceback -O3 -Mipa=fast -Kieee -r8 -i4 -fPIC
+IP_FPPFLAGS   = -DLSIZE=d
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library
