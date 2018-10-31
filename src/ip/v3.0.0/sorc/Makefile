@@ -18,7 +18,7 @@ prefix      = ../
 installdir     = $(prefix)/$(distdir)
 
 # Compiler substitution variables
-FC       = ifort
+FC       = $(FCserial)
 FCFLAGS  = $(IP_FFLAGS) -c
 FPPFLAGS  = $(IP_FPPFLAGS)
 AR       = ar
@@ -65,13 +65,6 @@ install:
 # ...Universal uninstallation
 uninstall:
 	-rm -fr $(DESTDIR)$(installdir) >/dev/null 2>&1
-
-# ...Reconfig targets
-Makefile: Makefile.in ../config.status
-	cd .. && ./config.status sorc/$@
-
-../config.status: ../configure
-	cd .. && ./config.status --recheck
 
 # Specify targets that do not generate filesystem objects
 .PHONY: all clean distclean check install uninstall
