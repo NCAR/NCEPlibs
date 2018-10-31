@@ -39,10 +39,10 @@ NEMSIO_FFLAGS  = $(OMPFLAGS) -O -g -traceback -fPIC
 NEMSIO_ARFLAGS = -rvu
 
 # Flags for nemsiogfs library
-NEMSIOGFS_FFLAGS  = $(OMPFLAGS) -O3 -FR        
+NEMSIOGFS_FFLAGS  = $(OMPFLAGS) -O3 -Mfree 
 
 # Flags for sfcio library
-SFCIO_FFLAGS = -O2 -G2 -hbyteswapio -I$(INCMOD) -ffree
+SFCIO_FFLAGS = -O2 -byteswapio -I$(INCMOD) -Mfree
 SFCIO_ARFLAGS = -ruv
 
 # Flags for sigio library
