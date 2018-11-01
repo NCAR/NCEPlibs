@@ -27,15 +27,23 @@ GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
 IP_FFLAGS     = $(OMPFLAGS) -O3 -fdefault-real-8 -fPIC
+IP_FPPFLAGS   = -cpp -DLSIZE=d
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library
-LAND_FFLAGS   = $(OMPFLAGS) -O3 -I$(MOD_DIR) -fdefault-real-8 -ffree-form -fPIC
-LAND_ARFLAGS  = -rv
+LAND_FFLAGS   = $(OMPFLAGS) -fdefault-real-8  -O3 -ffree-form -c
+LAND_ARFLAGS  = crvs
 
 # Flags for nemsio library
 NEMSIO_FFLAGS  = $(OMPFLAGS) -O -g -fPIC
 NEMSIO_ARFLAGS = -rvu
+
+# Flags for nemsiogfs library
+NEMSIOGFS_FFLAGS  = $(OMPFLAGS) -O3 -ffree-form
+
+# Flags for sfcio library
+SFCIO_FFLAGS = -O2 -g -fbacktrace -fconvert=big-endian -I$(INCMOD) -ffree-form
+SFCIO_ARFLAGS = -ruv
 
 # Flags for sigio library
 SIGIO_FFLAGS  = $(OMPFLAGS) -O0 -g -fbacktrace -ffree-form -fconvert=big-endian -c -fPIC
