@@ -19,6 +19,7 @@ http://www.nco.ncep.noaa.gov/pmb/codes/nwprod/lib/nemsiogfs/v2.0.1/
 Several files in w3nco/v2.0.6/src had to be patched for thread-safety,
 (OpenMP compilers), and for using the GNU compilers in general. Files in
 bacio/v2.0.1/src had to be extended with preprocessor flags for MACOSX.
+nemsio_gfs had to be modified to exclude non-standard code.
 
 #### Building:
 
