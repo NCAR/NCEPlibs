@@ -98,8 +98,8 @@ fi
 # Check that all libraries are available on this platform
 #--------------------------------------------------------------
 if [ "$COMPILEALL" == "1" ]; then
-  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" ]; then
-    echo "ERROR: Compile all option (-a 1) only supported for 'cheyenne' and 'macosx' at this time"
+  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "theia" ]; then
+    echo "ERROR: Compile all option (-a 1) only supported for 'cheyenne', 'macosx', and 'theia' at this time"
     exit 1
   fi
 fi

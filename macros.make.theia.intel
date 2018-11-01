@@ -26,16 +26,24 @@ GFSIO_FFLAGS  = $(OMPFLAGS) -traceback -g -xHOST -convert big_endian -assume byt
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
-IP_FFLAGS     = $(OMPFLAGS) -O3 -ip -fp-model strict -real-size 64 -integer-size 32 -fPIC
+IP_FFLAGS     = $(OMPFLAGS) -r8 -O3 -fp-model strict -ip -I. -convert little_endian -assume byterecl
+IP_FPPFLAGS   = -fpp -DLSIZE=d -save-temps
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library
-LAND_FFLAGS   = $(OMPFLAGS) -O3 -I$(MOD_DIR) -ip -fp-model strict -real-size 64 -integer-size 32 -FR -fPIC
-LAND_ARFLAGS  = -rv
+LAND_FFLAGS   = $(OMPFLAGS) -r8 -O3 -fp-model strict -ip -FR -I. -module . -c
+LAND_ARFLAGS  = crvs
 
 # Flags for nemsio library
 NEMSIO_FFLAGS  = $(OMPFLAGS) -O -g -fPIC
 NEMSIO_ARFLAGS = -rvu
+
+# Flags for nemsiogfs library
+NEMSIOGFS_FFLAGS  = $(OMPFLAGS) -O3 -FR        
+
+# Flags for sfcio library
+SFCIO_FFLAGS = -O3 -traceback -axCore-AVX2 -convert big_endian -assume byterecl -I$(INCMOD) -FR
+SFCIO_ARFLAGS = -ruv
 
 # Flags for sigio library
 SIGIO_FFLAGS  = $(OMPFLAGS) -O0 -g -xHOST -traceback -free -convert big_endian -assume byterecl -c -fPIC
