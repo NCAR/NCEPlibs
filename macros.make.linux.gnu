@@ -1,4 +1,4 @@
-# Settings for LIBRARY BUILD ONLY: macosx.gnu
+# Settings for LIBRARY BUILD ONLY: linux.gnu
 #
 # Flags common to all
 RM         = rm -f

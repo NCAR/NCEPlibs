@@ -33,8 +33,8 @@ $(LIBRARY): $(OBJ_FILES)
 
 library: $(LIBRARY)
 	cp $(LIBRARY) $(LIB)
-	mkdir -p ../incmod
-	cp *.mod ../incmod
+	mkdir -p ../../../../include/
+	cp *.mod ../../../../include/
 
 clean:
 	$(RM) *.o *.mod *.a $(LIB) ../incmod/*.mod

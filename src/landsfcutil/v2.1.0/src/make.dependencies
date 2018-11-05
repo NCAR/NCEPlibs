@@ -1,0 +1,5 @@
+ consts.o : consts.f
+ interp_utils.o : ll2xy_utils.o interp_utils.f
+ ll2xy_utils.o : ll2xy_utils.f
+ read_write_utils.o : read_write_utils.f
+ soil_utils.o : consts.o soil_utils.f

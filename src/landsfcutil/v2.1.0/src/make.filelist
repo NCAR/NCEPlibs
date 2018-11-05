@@ -1,0 +1,18 @@
+# The list of files that need preprocessing
+FPP_FILES =
+
+# The list of regular source files
+FSRC_FILES = \
+ consts.f \
+ interp_utils.f \
+ ll2xy_utils.f \
+ read_write_utils.f \
+ soil_utils.f
+
+# The complete list of source files
+SRC_FILES = $(FSRC_FILES) \
+            $(FPP_FILES)
+
+# The list of object files
+OBJ_FILES = ${FSRC_FILES:.f=.o} \
+            ${FPP_FILES:.F=.o}

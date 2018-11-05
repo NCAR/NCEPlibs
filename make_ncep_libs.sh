@@ -19,11 +19,12 @@ function fail    { [ -n "$1" ] && printf "\n%s\n" "$1"; exit 1; }
 
 function usage   { 
   echo "Usage: "
-  echo "$THIS_FILE -s system -c compiler -d installdir -o openmp | -h"
+  echo "$THIS_FILE -s system -c compiler -d installdir -o openmp -a compileall | -h"
   echo "    Where: system     [required] can be : ${validsystems[@]}"
   echo "           compiler   [required] can be : ${validcompilers[@]}"
   echo "           installdir [required] is the installation destination (must exist)"
   echo "           openmp     [required] is an OpenMP build flag and can be ${validopenmpflags[@]}"
+  echo "           compileall [optional] is a flag to build the full set of libraries (only valid on cheyenne and macosx) and can be ${validopenmpflags[@]}"
   exit 1
 }
 
@@ -37,16 +38,17 @@ THIS_FILE=$(basename "$0" )
 validsystems=( theia cheyenne macosx linux )
 validcompilers=( intel pgi gnu )
 validopenmpflags=( 0 1 )
-
+validcompileallflags=( 0 1 )
 #--------------------------------------------------------------
 # Parse command line arguments
 #--------------------------------------------------------------
-while getopts :s:c:d:o:help opt; do
+while getopts :s:c:d:o:a:help opt; do
   case $opt in
     s) SYSTEM=$OPTARG ;;
     c) COMPILER=$OPTARG ;;
     d) NCEPLIBS_DST_DIR=$OPTARG ;;
     o) OPENMP=$OPTARG ;;
+    a) COMPILEALL=$OPTARG ;;
     h) usage ;;
     *) usage ;;
   esac
@@ -57,6 +59,7 @@ if [ -z $SYSTEM ] ; then usage; fi
 if [ -z $COMPILER ] ; then usage; fi
 if [ -z $NCEPLIBS_DST_DIR ] ; then usage; fi
 if [ -z $OPENMP ] ; then usage; fi
+if [ -z $COMPILEALL ] ; then COMPILEALL=0; fi #COMPILEALL is an optional argument
 
 # Ensure value ($2) of variable ($1) is contained in list of validvalues ($3)
 function checkvalid {
@@ -82,12 +85,23 @@ function checkvalid {
 checkvalid SYSTEM ${SYSTEM} ${validsystems[@]}
 checkvalid COMPILER ${COMPILER} ${validcompilers[@]}
 checkvalid OPENMP ${OPENMP} ${validopenmpflags[@]}
+checkvalid COMPILEALL ${COMPILEALL} ${validcompileallflags[@]}
 
 if [ -d ${NCEPLIBS_DST_DIR} ]; then
   echo "Destination directory ${NCEPLIBS_DST_DIR} exists."
 else
   echo "ERROR: Destination directory ${NCEPLIBS_DST_DIR} does not exist."
   exit 1
+fi
+
+#--------------------------------------------------------------
+# Check that all libraries are available on this platform
+#--------------------------------------------------------------
+if [ "$COMPILEALL" == "1" ]; then
+  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "theia" ]; then
+    echo "ERROR: Compile all option (-a 1) only supported for 'cheyenne', 'macosx', and 'theia' at this time"
+    exit 1
+  fi
 fi
 
 #--------------------------------------------------------------
@@ -112,7 +126,11 @@ cp -v ${MACROS_FILE}.${SYSTEM}.${COMPILER} ${MACROS_FILE}
 #--------------------------------------------------------------
 rsync -a macros.make Makefile src ${BUILD_DIR}
 cd ${BUILD_DIR}
-make || fail "An error occurred building the NCEP libraries"
+if [ "$COMPILEALL" == "1" ]; then
+   make all || fail "An error occurred building the NCEP libraries"
+else
+   make some || fail "An error occurred building the NCEP libraries"
+fi
 
 #--------------------------------------------------------------
 # Install to NCEPLIBS_DST_DIR
