@@ -1,7 +1,7 @@
 # NCEP libraries for FV3 (NEMSfv3gfs trunk, April 2018)
 
 #### Original version: Julie Schramm, NOAA
-#### Last update: Dom Heinzeller, NOAA, 20180828
+#### Last update: Michael Kavulich, NCAR JNT, 201811
 
 The original library sources are available from following websites:
 
@@ -29,7 +29,7 @@ module file of NEMSfv3gfs (NEMSFV3GFS_DIR/modulefiles/SYSTEM.COMPILER/fv3).
 
 The libraries are built and installed with
 
-> ./make_ncep_libs.sh -s MACHINE -c COMPILER -d NCEPLIBS_DIR -o OPENMP
+> ./make_ncep_libs.sh -s MACHINE -c COMPILER -d NCEPLIBS_DIR -o OPENMP -a COMPILEALL
 
 Further information on the command line arguments can be obtained with
 
