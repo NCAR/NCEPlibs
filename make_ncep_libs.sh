@@ -124,6 +124,7 @@ cp -v ${MACROS_FILE}.${SYSTEM}.${COMPILER} ${MACROS_FILE}
 #--------------------------------------------------------------
 # Copy library source to BUILD_DIR and build
 #--------------------------------------------------------------
+export OPENMP=${OPENMP}
 rsync -a macros.make Makefile src ${BUILD_DIR}
 cd ${BUILD_DIR}
 if [ "$COMPILEALL" == "1" ]; then
@@ -131,6 +132,7 @@ if [ "$COMPILEALL" == "1" ]; then
 else
    make some || fail "An error occurred building the NCEP libraries"
 fi
+export -n OPENMP
 
 #--------------------------------------------------------------
 # Install to NCEPLIBS_DST_DIR
