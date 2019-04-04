@@ -1,7 +1,7 @@
 # NCEP libraries for FV3 (NEMSfv3gfs trunk, April 2018)
 
 #### Original version: Julie Schramm, NOAA
-#### Last update: Michael Kavulich, NCAR JNT, 201811
+#### Last update: Dom Heinzeller, NOAA, 20190404
 
 The original library sources are available from following websites:
 
