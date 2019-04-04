@@ -59,10 +59,10 @@ module nemsio_openclose
 !                 (idrt=4 for gaussian grid,
 !                  idrt=0 for equally-spaced grid including poles,
 !                  idrt=256 for equally-spaced grid excluding poles)
-!        rlon_min:real(nemsio_realkind)     minimal longtitude of regional domain (global:set to 0)
-!        rlon_max:real(nemsio_realkind)     maximal longtitude of regional domain (global:set to 360.)
-!        rlat_min:real(nemsio_realkind)     minimal longtitude of regional domain (global:set to -90)
-!        rlat_max:real(nemsio_realkind)     maximal longtitude of regional domain (global:set to 90)
+!        rlon_min:real(nemsio_realkind)     minimal longitude of regional domain (global:set to 0)
+!        rlon_max:real(nemsio_realkind)     maximal longitude of regional domain (global:set to 360.)
+!        rlat_min:real(nemsio_realkind)     minimal longitude of regional domain (global:set to -90)
+!        rlat_max:real(nemsio_realkind)     maximal longitude of regional domain (global:set to 90)
 !        extrameta:logical(nemsio_logickind)extra meta data flag
 !        nmetavari:integer(nemsio_intkind)  number of extra meta data integer variables
 !        nmetavarr:integer(nemsio_intkind)  number of extra meta data real(4) variables
