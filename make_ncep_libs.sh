@@ -19,12 +19,13 @@ function fail    { [ -n "$1" ] && printf "\n%s\n" "$1"; exit 1; }
 
 function usage   { 
   echo "Usage: "
-  echo "$THIS_FILE -s system -c compiler -d installdir -o openmp -a compileall | -h"
+  echo "$THIS_FILE -s system -c compiler -d installdir -o openmp [-m mpi] [-a compileall] | -h"
   echo "    Where: system     [required] can be : ${validsystems[@]}"
   echo "           compiler   [required] can be : ${validcompilers[@]}"
   echo "           installdir [required] is the installation destination (must exist)"
   echo "           openmp     [required] is an OpenMP build flag and can be ${validopenmpflags[@]}"
-  echo "           compileall [optional] is a flag to build the full set of libraries (only valid on cheyenne and macosx) and can be ${validopenmpflags[@]}"
+  echo "           mpi        [optional] is an MPI build flag and can be ${validmpiflags[@]} (default 1; if 0, nemsio is not built and compileall must be 0)"
+  echo "           compileall [optional] is a flag to build the full set of libraries (only valid on theia, cheyenne and macosx) and can be ${validcompileallflags[@]}"
   exit 1
 }
 
@@ -38,16 +39,18 @@ THIS_FILE=$(basename "$0" )
 validsystems=( theia jet gaea cheyenne macosx linux )
 validcompilers=( intel pgi gnu )
 validopenmpflags=( 0 1 )
+validmpiflags=( 0 1 )
 validcompileallflags=( 0 1 )
 #--------------------------------------------------------------
 # Parse command line arguments
 #--------------------------------------------------------------
-while getopts :s:c:d:o:a:help opt; do
+while getopts :s:c:d:o:m:a:help opt; do
   case $opt in
     s) SYSTEM=$OPTARG ;;
     c) COMPILER=$OPTARG ;;
     d) NCEPLIBS_DST_DIR=$OPTARG ;;
     o) OPENMP=$OPTARG ;;
+    m) MPI=$OPTARG ;;
     a) COMPILEALL=$OPTARG ;;
     h) usage ;;
     *) usage ;;
@@ -59,6 +62,7 @@ if [ -z $SYSTEM ] ; then usage; fi
 if [ -z $COMPILER ] ; then usage; fi
 if [ -z $NCEPLIBS_DST_DIR ] ; then usage; fi
 if [ -z $OPENMP ] ; then usage; fi
+if [ -z $MPI ] ; then MPI=1; fi
 if [ -z $COMPILEALL ] ; then COMPILEALL=0; fi #COMPILEALL is an optional argument
 
 # Ensure value ($2) of variable ($1) is contained in list of validvalues ($3)
@@ -85,8 +89,18 @@ function checkvalid {
 checkvalid SYSTEM ${SYSTEM} ${validsystems[@]}
 checkvalid COMPILER ${COMPILER} ${validcompilers[@]}
 checkvalid OPENMP ${OPENMP} ${validopenmpflags[@]}
+checkvalid MPI ${MPI} ${validmpiflags[@]}
 checkvalid COMPILEALL ${COMPILEALL} ${validcompileallflags[@]}
 
+# Consistency check: if MPI is zero, COMPILEALL must be zero, too
+if [ "$MPI" == "0" ]; then
+  if [ "$COMPILEALL" == "1" ]; then
+    echo "ERROR: Option -a compileall must be zero if MPI is desiabled."
+    exit 1
+  fi
+fi
+
+# Make sure the destination directory exists
 if [ -d ${NCEPLIBS_DST_DIR} ]; then
   echo "Destination directory ${NCEPLIBS_DST_DIR} exists."
 else
@@ -129,6 +143,8 @@ rsync -a macros.make Makefile src ${BUILD_DIR}
 cd ${BUILD_DIR}
 if [ "$COMPILEALL" == "1" ]; then
    make all || fail "An error occurred building the NCEP libraries"
+elif [ "$MPI" == "0" ]; then
+   make nompi || fail "An error occurred building the NCEP libraries"
 else
    make some || fail "An error occurred building the NCEP libraries"
 fi

@@ -6,7 +6,7 @@ AR         = ar
 ARFLAGS    =
 FC         = mpif90
 FCserial   = gfortran
-CC         = mpicc
+CC         = clang
 
 ifeq ($(OPENMP),1)
   OMPFLAGS= -fopenmp
