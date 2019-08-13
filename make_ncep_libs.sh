@@ -119,6 +119,35 @@ if [ "$COMPILEALL" == "1" ]; then
 fi
 
 #--------------------------------------------------------------
+# For generic Linux/MacOSX systems, check compiler environment
+# variables CC, F90, MPIF90, or use default values.
+#--------------------------------------------------------------
+if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ]; then
+  echo "Checking environment variable CC to overwrite default 'gcc' ..."
+  export CC=${CC:-gcc}
+  echo "Checking environment variable F90 to overwrite default 'gfortran' ..."
+  export FCserial=${F90:-gfortran}
+  if [ "$MPI" == "0" ]; then
+    export FC=${FCserial}
+  else
+    echo "Checking environment variable MPIF90 to overwrite default 'mpif90' ..."
+    export FC=${MPIF90:-mpif90}
+  fi
+  echo "Compiler setttings:"
+  echo "  CC       = ${CC}"
+  echo "  FCserial = ${FCserial}"
+  echo "  FC       = ${FC}"
+  while true; do
+    read -p "Proceed? (y/n) " yn
+    case $yn in
+      [Yy]* ) break;;
+      [Nn]* ) exit;;
+      * ) echo "Please answer yes or no.";;
+    esac
+  done
+fi
+
+#--------------------------------------------------------------
 # Get the build root directory
 #--------------------------------------------------------------
 export BUILD_DIR="${NCEPLIBS_SRC_DIR}/exec_${SYSTEM}.${COMPILER}"

@@ -4,9 +4,9 @@
 RM         = rm -f
 AR         = ar
 ARFLAGS    =
-FC         = mpif90
-FCserial   = gfortran
-CC         = clang
+#FC         = mpif90
+#FCserial   = gfortran
+#CC         = gcc
 
 ifeq ($(OPENMP),1)
   OMPFLAGS= -fopenmp
