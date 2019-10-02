@@ -48,4 +48,3 @@ clean:
 	$(MAKE) -C src/landsfcutil/v2.1.0/src clean
 	$(MAKE) -C src/sfcio/v1.0.0/src clean
 	$(MAKE) -C src/nemsiogfs/v2.0.1/src clean # Depends on nemsio 2.0.1
-	$(MAKE) -C src/g2/v3.1.0/src clean
