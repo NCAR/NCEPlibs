@@ -46,7 +46,7 @@ validapplicationflags=( global sar all )
 #--------------------------------------------------------------
 # Parse command line arguments
 #--------------------------------------------------------------
-while getopts :s:c:d:o:m:a::help opt; do
+while getopts :s:c:d:o:m:a:help opt; do
   case $opt in
     s) SYSTEM=$OPTARG ;;
     c) COMPILER=$OPTARG ;;
