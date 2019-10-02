@@ -30,7 +30,6 @@ sarlibs:
 # Makerule for the Unified Post-Processor (UPP)
 upp: core nemsio sfcio upplibs
 upplibs:
-	$(MAKE) $(MAKEMINUSJ) -C src/g2/v3.1.0/src          # UPP
 
 # Makerule for original (global) libraries
 global: core nemsio
