@@ -1,5 +1,5 @@
 SHELL=/bin/sh
-
+include ../../../../macros.make
 #  Make sure one of the following options appears in your CFLAGS
 #  variable to indicate which system you are on.  Used to call
 #  "C" routines from Fortran.
@@ -17,23 +17,16 @@ SHELL=/bin/sh
 #  mentioned include files can be found.
 FDEFS=-DUSE_PNG -DUSE_JPEG2000
 
-#XXW INCDIR= -I/nwprod/lib/include
-
-#XXW LIB=/nwprod/lib/libg2_4.a
-LIB=../../libg2_v2.5.0_4.a
+LIB    = ../../../../libg2_v3.1.0_4.a
 
 #-------------------------------------------
 # The following was used for Intel on WCOSS
 DEFS=-DLINUX
-FC=ifort
-CC=icc
+FC=$(FCserial)
 CPP=cpp -P
-#XXW MODDIR=/nwprod/lib/incmod/g2_4
-MODDIR=../../incmod/g2_v2.5.0_4
 
-FFLAGS=-O3 -g  -assume noold_ldout_format -module $(MODDIR)
-#XXW CFLAGS=-O3 -g $(DEFS) $(INCDIR) -D__64BIT__
-CFLAGS=-O3 -g $(DEFS) -I${JASPER_INC} -I${PNG_INC} -I${Z_INC} -D__64BIT__
+FFLAGS=$(G2_FFLAGS)
+CFLAGS=$(G2_CFLAGS)
 ARFLAGS=
 
 .SUFFIXES: .a .f .c
@@ -88,6 +81,7 @@ $(LIB):	$(LIB)(gridtemplates.o) \
 	$(LIB)(skgb.o) \
 	$(LIB)(ixgb2.o) \
 	$(LIB)(getidx.o) \
+	$(LIB)(getidxes.o) \
 	$(LIB)(getg2i.o) \
 	$(LIB)(getg2ir.o) \
 	$(LIB)(getgb2s.o) \
@@ -100,7 +94,12 @@ $(LIB):	$(LIB)(gridtemplates.o) \
 	$(LIB)(g2grids.o) \
 	$(LIB)(gdt2gds.o) \
 	$(LIB)(params.o) \
+	$(LIB)(intmath.o) \
 	$(LIB)(params_ecmwf.o)
+
+$(LIB)(compack.o): $(LIB)(intmath.o)
+$(LIB)(simpack.o): $(LIB)(intmath.o)
+$(LIB)(misspack.o): $(LIB)(intmath.o)
 
 .f:
 	$(CPP) $(FDEFS) $*.f
@@ -114,3 +113,8 @@ $(LIB):	$(LIB)(gridtemplates.o) \
 	$(CC) -c $(CFLAGS) $<
 	ar $(ARFLAGS) -ruv $@ $*.o
 	rm -f $*.o
+
+clean: 
+	$(RM) *.mod $(LIB)
+
+

@@ -163,6 +163,20 @@ if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ]; then
 fi
 
 #--------------------------------------------------------------
+# For grib2 libraries, need JASPER, PNG, and Z libs
+if [ "$APP" == "upp" ]; then
+  if [ -z "$JASPER_INC" ] || [ -z "$PNG_INC" ]; then
+    echo "ERROR: You must define locations of JASPER and PNG library include files to compile upp libraries"
+    exit 1
+  elif [ ! -d "$JASPER_INC" ] || [ ! -d "$PNG_INC" ]; then
+    echo "ERROR: Check your include paths; one of these paths does not exist:"
+    echo $JASPER_INC
+    echo $PNG_INC
+    exit 2
+  fi
+fi
+
+#--------------------------------------------------------------
 # Get the build root directory
 #--------------------------------------------------------------
 export BUILD_DIR="${NCEPLIBS_SRC_DIR}/exec_${SYSTEM}.${COMPILER}"

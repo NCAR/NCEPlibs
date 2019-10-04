@@ -23,6 +23,10 @@ GMAKEMINUSJ = -j24
 BACIO_FFLAGS  = $(OMPFLAGS) -O3 -fbacktrace -fPIC
 BACIO_CFLAGS  = $(OMPFLAGS) -O3 -DUNDERSCORE -DLINUX -fPIC
 
+# Flags for g2 library
+G2_FFLAGS  = $(OMPFLAGS) -O3 -fbacktrace -fPIC -fno-range-check
+G2_CFLAGS  = $(OMPFLAGS) -O3 -g $(DEFS) -I${JASPER_INC} -I${PNG_INC} -D__64BIT__
+
 # Flags for gfsio library
 GFSIO_FFLAGS  = $(OMPFLAGS) -fbacktrace -g -O3 -fconvert=big-endian -I$(INCMOD) -ffree-form -fPIC
 GFSIO_ARFLAGS = -rv
