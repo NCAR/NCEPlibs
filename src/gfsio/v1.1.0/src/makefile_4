@@ -1,0 +1,12 @@
+FFLAGS  = $(flagOpt) $(flagFort) $(MODDIR)
+#FFLAGS  = $(flagFort) $(MODDIR) -g -convert big_endian -assume byterecl -FR
+#FFLAGS = -g -C -qextchk -qflttrap -qnosave -O3 -q free=f90 -I$(INCMOD)
+AR      = ar
+ARFLAGS = -rv 
+
+$(LIB): $(LIB)(gfsio_module.o) 
+.f.a:
+	$(FC) -c $(FFLAGS) $<
+	$(AR) $(ARFLAGS) $@ $*.o
+	rm -f $*.o
+
