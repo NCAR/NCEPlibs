@@ -32,7 +32,7 @@ G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -ffree-form
 G2TMPL_CFLAGS  = $(OMPFLAGS) -O3 -g -DUNDERSCORE
 
 # Flags for gfsio library
-GFSIO_FFLAGS  = $(OMPFLAGS) -fbacktrace -g -O3 -fconvert=big-endian -I$(INCMOD) -ffree-form -fPIC
+GFSIO_FFLAGS  = $(OMPFLAGS) -fbacktrace -g -O3 -fconvert=big-endian -ffree-form -fPIC
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
