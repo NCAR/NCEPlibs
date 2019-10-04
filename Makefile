@@ -31,6 +31,7 @@ sarlibs:
 upp: core nemsio sfcio upplibs
 upplibs:
 	$(MAKE) $(MAKEMINUSJ) -C src/g2/v3.1.0/src          # UPP
+	$(MAKE) $(MAKEMINUSJ) -C src/g2tmpl/v1.5.0/src      # UPP
 
 # Makerule for original (global) libraries
 global: core nemsio
