@@ -10,3 +10,6 @@ $(LIB):	$(LIB)(sfcio_module.o)
 	$(AR) $(SFCIO_ARFLAGS) $@ $*.o
 	rm -f $*.o
 	mv *.mod $(INCMOD)
+
+clean:
+	$(RM) $(LIB)
