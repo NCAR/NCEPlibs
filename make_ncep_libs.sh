@@ -120,9 +120,9 @@ fi
 #--------------------------------------------------------------
 # Check that all libraries are available on this platform
 #--------------------------------------------------------------
-if [ "$APP" == "1" ]; then
+if [ "$APP" == "all" ]; then
   if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "theia" -a "${SYSTEM}" != "hera" ]; then
-    echo "ERROR: Compile all option (-a 1) only supported for 'cheyenne', 'macosx', and 'hera' at this time"
+    echo "ERROR: Compile all option only supported for 'cheyenne', 'macosx', and 'hera' at this time"
     exit 1
   fi
 fi
