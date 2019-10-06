@@ -7,25 +7,27 @@
 #
 # Examples:
 #     > ./make_ncep_libs.sh -h
-#     > ./make_ncep_libs.sh -s theia -c intel -d /scratch4/home/USERNAME/NCEPlibs-20180401 -o 1
+#     > ./make_ncep_libs.sh -s hera -c intel -d /scratch4/home/USERNAME/NCEPlibs-20180401 -o 1
 #     > ./make_ncep_libs.sh -s cheyenne -c pgi -d /glade/p/work/USERNAME/NCEPlibs-20180401 -o 0
 #     > ./make_ncep_libs.sh -s macosx -c gnu -d /usr/local/NCEPlibs-20180401 -o 1
+#     > ./make_ncep_libs.sh -s cheyenne -c gnu -d /glade/p/work/USERNAME/NCEPlibs-20180401 -o 0 -a sar
 #
 #==========================================================================
 
 # Define functions.
-
 function fail    { [ -n "$1" ] && printf "\n%s\n" "$1"; exit 1; }
 
 function usage   { 
   echo "Usage: "
-  echo "$THIS_FILE -s system -c compiler -d installdir -o openmp [-m mpi] [-a compileall] | -h"
-  echo "    Where: system     [required] can be : ${validsystems[@]}"
-  echo "           compiler   [required] can be : ${validcompilers[@]}"
-  echo "           installdir [required] is the installation destination (must exist)"
-  echo "           openmp     [required] is an OpenMP build flag and can be ${validopenmpflags[@]}"
-  echo "           mpi        [optional] is an MPI build flag and can be ${validmpiflags[@]} (default 1; if 0, nemsio is not built and compileall must be 0)"
-  echo "           compileall [optional] is a flag to build the full set of libraries (only valid on theia, cheyenne and macosx) and can be ${validcompileallflags[@]}"
+  echo "$THIS_FILE -s system -c compiler -d installdir -o openmp [-m mpi] [-a application] | -h"
+  echo "    Where: system      [required] can be : ${validsystems[@]}"
+  echo "           compiler    [required] can be : ${validcompilers[@]}"
+  echo "           installdir  [required] is the installation destination (must exist)"
+  echo "           openmp      [required] is an OpenMP build flag and can be ${validopenmpflags[@]}"
+  echo "           mpi         [optional] is an MPI build flag and can be ${validmpiflags[@]} "
+  echo "                                  (default 1; if 0, nemsio is not built and application must be 'global')"
+  echo "           application [optional] is a flag to build certain sets of libraries for specific applications"
+  echo "                                  The default is 'global', the full set of options is: ${validapplicationflags[@]}"
   exit 1
 }
 
@@ -40,7 +42,7 @@ validsystems=( hera theia jet gaea cheyenne macosx linux )
 validcompilers=( intel pgi gnu )
 validopenmpflags=( 0 1 )
 validmpiflags=( 0 1 )
-validcompileallflags=( 0 1 )
+validapplicationflags=( global sar all )
 #--------------------------------------------------------------
 # Parse command line arguments
 #--------------------------------------------------------------
@@ -51,19 +53,26 @@ while getopts :s:c:d:o:m:a:help opt; do
     d) NCEPLIBS_DST_DIR=$OPTARG ;;
     o) OPENMP=$OPTARG ;;
     m) MPI=$OPTARG ;;
-    a) COMPILEALL=$OPTARG ;;
+    a) APP=$OPTARG ;;
     h) usage ;;
     *) usage ;;
   esac
 done
 
 # Check if all mandatory arguments are provided
-if [ -z $SYSTEM ] ; then usage; fi
-if [ -z $COMPILER ] ; then usage; fi
-if [ -z $NCEPLIBS_DST_DIR ] ; then usage; fi
-if [ -z $OPENMP ] ; then usage; fi
+if [ -z $SYSTEM ] ; then echo "ERROR: system argument is required"; echo""; usage; fi
+if [ -z $COMPILER ] ; then echo "ERROR: compiler argument is required"; echo""; usage; fi
+if [ -z $NCEPLIBS_DST_DIR ] ; then echo "ERROR: installdir argument is required"; echo""; usage; fi
+if [ -z $OPENMP ] ; then echo "ERROR: openmp argument is required"; echo""; usage; fi
 if [ -z $MPI ] ; then MPI=1; fi
-if [ -z $COMPILEALL ] ; then COMPILEALL=0; fi #COMPILEALL is an optional argument
+if [ -z $APP ] ; then APP=0; fi #APP is an optional argument
+
+# For back compatability, allow APP to be 0 (global) or 1 (all)
+if [ "$APP" == "0" ]; then
+  $APP = "global"
+elif [ "$APP" == "1" ]; then
+  $APP = "all"
+fi
 
 # Ensure value ($2) of variable ($1) is contained in list of validvalues ($3)
 function checkvalid {
@@ -90,12 +99,12 @@ checkvalid SYSTEM ${SYSTEM} ${validsystems[@]}
 checkvalid COMPILER ${COMPILER} ${validcompilers[@]}
 checkvalid OPENMP ${OPENMP} ${validopenmpflags[@]}
 checkvalid MPI ${MPI} ${validmpiflags[@]}
-checkvalid COMPILEALL ${COMPILEALL} ${validcompileallflags[@]}
+checkvalid APP ${APP} ${validapplicationflags[@]}
 
-# Consistency check: if MPI is zero, COMPILEALL must be zero, too
+# Consistency check: if MPI is zero, APP must be zero, too
 if [ "$MPI" == "0" ]; then
-  if [ "$COMPILEALL" == "1" ]; then
-    echo "ERROR: Option -a compileall must be zero if MPI is desiabled."
+  if [ "$APP" != "global" ]; then
+    echo "ERROR: Option -a (application) must be 'global' if MPI is disabled."
     exit 1
   fi
 fi
@@ -111,9 +120,15 @@ fi
 #--------------------------------------------------------------
 # Check that all libraries are available on this platform
 #--------------------------------------------------------------
-if [ "$COMPILEALL" == "1" ]; then
+if [ "$APP" == "1" ]; then
   if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "theia" -a "${SYSTEM}" != "hera" ]; then
-    echo "ERROR: Compile all option (-a 1) only supported for 'cheyenne', 'macosx', 'theia' and 'hera' at this time"
+    echo "ERROR: Compile all option (-a 1) only supported for 'cheyenne', 'macosx', and 'hera' at this time"
+    exit 1
+  fi
+fi
+if [ "$APP" == "upp" ] || [ "$APP" == "sar" ]; then
+  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "hera" ]; then
+    echo "ERROR: upp and sar library sets are only supported for 'cheyenne', 'macosx', and 'hera' at this time"
     exit 1
   fi
 fi
@@ -170,12 +185,17 @@ cp -v ${MACROS_FILE}.${SYSTEM}.${COMPILER} ${MACROS_FILE}
 export OPENMP=${OPENMP}
 rsync -a macros.make Makefile src ${BUILD_DIR}
 cd ${BUILD_DIR}
-if [ "$COMPILEALL" == "1" ]; then
+if [ "$APP" == "all" ]; then
    make all || fail "An error occurred building the NCEP libraries"
 elif [ "$MPI" == "0" ]; then
    make nompi || fail "An error occurred building the NCEP libraries"
+elif [ "$APP" == "upp" ]; then
+   echo "UPP libraries are not yet supported"
+   fail "An error occurred building the NCEP libraries"
+elif [ "$APP" == "sar" ]; then
+   make sar || fail "An error occurred building the NCEP libraries"
 else
-   make some || fail "An error occurred building the NCEP libraries"
+   make global || fail "An error occurred building the NCEP libraries"
 fi
 export -n OPENMP
 
@@ -193,5 +213,9 @@ cp -av ${BUILD_DIR}/include/* ${NCEPLIBS_DST_DIR}/include/
 cp -av ${BUILD_DIR}/lib*.a ${NCEPLIBS_DST_DIR}/lib/
 
 echo
-echo "To build FV3, set environment variable NCEPLIBS_DIR to ${NCEPLIBS_DST_DIR}"
+if [ "$APP" == "upp" ]; then
+   echo "To build UPP, set environment variable NCEPLIBS_DIR to ${NCEPLIBS_DST_DIR}"
+else
+   echo "To build FV3, set environment variable NCEPLIBS_DIR to ${NCEPLIBS_DST_DIR}"
+fi
 echo
