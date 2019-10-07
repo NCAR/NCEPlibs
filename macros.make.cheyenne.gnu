@@ -7,6 +7,7 @@ ARFLAGS    =
 FC         = mpif90
 FCserial   = gfortran
 CC         = gcc
+CPP        = cpp
 
 ifeq ($(OPENMP),1)
   OMPFLAGS= -fopenmp
@@ -71,3 +72,8 @@ W3EMC_ARFLAGS = ruv
 W3NCO_FFLAGS  = $(OMPFLAGS) -O0 -g -fdefault-real-8 -fno-range-check -ffixed-form -fPIC
 W3NCO_CFLAGS  = $(OMPFLAGS) -O0 -DLINUX -fPIC
 W3NCO_ARFLAGS = -ruv
+
+# Flags for wrfio library
+WRFIO_FFLAGS   = $(OMPFLAGS) -ffree-form -ftree-vectorize -funroll-loops -fconvert=big-endian -frecord-marker=4
+WRFIO_ARFLAGS  = ru
+

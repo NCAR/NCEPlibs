@@ -163,15 +163,32 @@ if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ]; then
 fi
 
 #--------------------------------------------------------------
-# For grib2 libraries, need JASPER, PNG, and Z libs
+# For grib2 libraries, need JASPER and PNG library include files
 if [ "$APP" == "upp" ]; then
   if [ -z "$JASPER_INC" ] || [ -z "$PNG_INC" ]; then
     echo "ERROR: You must define locations of JASPER (JASPER_INC) and PNG (PNG_INC) library include files to compile upp libraries"
     exit 1
   elif [ ! -d "$JASPER_INC" ] || [ ! -d "$PNG_INC" ]; then
-    echo "ERROR: Check your include paths; one of these paths does not exist:"
+    echo "ERROR: Check your include paths; one or both of these paths does not exist:"
     echo $JASPER_INC
     echo $PNG_INC
+    exit 2
+  fi
+# For wrfio libraries, need NETCDF libs and includes
+  if [ -z "$NETCDF_LIB" ] || [ -z "$NETCDF_INC" ]; then
+  echo here1
+    if [ -z "$NETCDF" ]; then
+      echo "ERROR: You must define the locations of NETCDF library (NETCDF_LIB) and include (NETCDF_INC) files to compile upp libraries"
+      exit 1
+    else
+      export NETCDF_LIB="$NETCDF/lib"
+      export NETCDF_INC="$NETCDF/include"
+    fi
+  fi
+  if [ ! -d "$NETCDF/lib" ] || [ ! -d "$NETCDF/include" ]; then
+    echo "ERROR: Check your NETCDF location; one or both of these paths does not exist:"
+    echo $NETCDF/lib
+    echo $NETCDF/include
     exit 2
   fi
 fi

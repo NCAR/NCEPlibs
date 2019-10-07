@@ -33,6 +33,7 @@ upplibs:
 	$(MAKE) $(MAKEMINUSJ) -C src/g2/v3.1.0/src          # UPP
 	$(MAKE) $(MAKEMINUSJ) -C src/g2tmpl/v1.5.0/src      # UPP
 	$(MAKE) $(MAKEMINUSJ) -C src/gfsio/v1.1.0/src       # UPP
+	$(MAKE) $(MAKEMINUSJ) -C src/wrfio/v1.1.1/src       # UPP
 
 # Makerule for original (global) libraries
 global: core nemsio
@@ -53,3 +54,4 @@ clean:
 	$(MAKE) -C src/nemsiogfs/v2.0.1/src clean # Depends on nemsio 2.0.1
 	$(MAKE) -C src/g2/v3.1.0/src clean
 	$(MAKE) -C src/gfsio/v1.1.0/src clean
+	$(MAKE) -C src/wrfio/v1.1.1/src clean
