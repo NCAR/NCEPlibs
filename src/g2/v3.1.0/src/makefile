@@ -18,7 +18,7 @@ include ../../../../macros.make
 FDEFS=-DUSE_PNG -DUSE_JPEG2000
 
 LIB    = ../../../../libg2_v3.1.0_4.a
-
+INCMOD = ../../../../include/
 #-------------------------------------------
 # The following was used for Intel on WCOSS
 DEFS=-DLINUX
@@ -107,6 +107,7 @@ $(LIB)(misspack.o): $(LIB)(intmath.o)
 .f.a:
 	$(FC) -c $(FFLAGS) $<
 	ar $(ARFLAGS) -ruv $@ $*.o
+	cp *.mod $(INCMOD)
 	rm -f $*.o
 
 .c.a:

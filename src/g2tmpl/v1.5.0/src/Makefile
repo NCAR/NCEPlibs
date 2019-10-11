@@ -2,6 +2,7 @@ SHELL=/bin/sh
 include ../../../../macros.make
 
 LIB    = ../../../../libg2tmpl_v1.5.0.a
+INCMOD = ../../../../include/
 
 FFLAGS=$(G2TMPL_FFLAGS)
 CFLAGS=$(G2TMPL_CFLAGS)
@@ -19,6 +20,7 @@ $(LIB)(process_4dot2.o): process_4dot2.c
 .f.a:
 	$(FC) -c $(FFLAGS) $<
 	$(AR) $(ARFLAGS) -ruv $@ $*.o 
+	cp *.mod $(INCMOD)
 	rm -f $*.o
 
 clean:
