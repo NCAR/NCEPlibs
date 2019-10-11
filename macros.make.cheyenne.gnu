@@ -25,8 +25,8 @@ BACIO_FFLAGS  = $(OMPFLAGS) -O3 -fbacktrace -fPIC
 BACIO_CFLAGS  = $(OMPFLAGS) -O3 -DUNDERSCORE -DLINUX -fPIC
 
 # Flags for g2 library
-G2_FFLAGS  = $(OMPFLAGS) -O3 -fbacktrace -fPIC -fno-range-check
-G2_CFLAGS  = $(OMPFLAGS) -O3 -g -I${JASPER_INC} -I${PNG_INC} -D__64BIT__
+G2_FFLAGS  = $(OMPFLAGS) -c -O3 -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
+G2_CFLAGS  = $(OMPFLAGS) -O3 -g -I${JASPER_INC} -I${PNG_INC} -DLINUX
 
 # Flags for g2tmpl library
 G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -ffree-form
