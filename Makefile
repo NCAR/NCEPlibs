@@ -32,7 +32,7 @@ upp: core nemsio sfcio upplibs
 upplibs:
 	$(MAKE) $(MAKEMINUSJ) -C src/g2/v3.1.0/src          # UPP
 	$(MAKE) $(MAKEMINUSJ) -C src/g2tmpl/v1.5.0/src      # UPP
-	$(MAKE) $(MAKEMINUSJ) -C src/gfsio/v1.1.0/src       # UPP
+	$(MAKE) $(MAKEMINUSJ) -C src/gfsio/v1.1.0/src       # UPP; Depends on w3emc
 	$(MAKE) $(MAKEMINUSJ) -C src/wrfio/v1.1.1/src       # UPP
 
 # Makerule for original (global) libraries

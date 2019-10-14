@@ -17,7 +17,7 @@ LIBDIR   = ../../../..
 
 # The library name
 LIBRARY = lib$(tarname)_$(precision).a
-INC     = -I../../../../include
+INCMOD  = ../../../../include
 
 # The file definitions. This include must occur before targets.
 include make.filelist
@@ -31,6 +31,7 @@ $(LIBRARY): $(OBJ_FILES)
 
 library: $(LIBRARY)
 	cp $(LIBRARY) $(LIBDIR)
+	cp *.mod $(INCMOD)
 
 clean:
 	$(RM) *.o *.mod *.a $(LIBDIR)/$(LIBRARY)
@@ -48,5 +49,5 @@ include make.dependencies
 	$(FC) $(EXTRA_FCFLAGS) $(FCFLAGS) $(FPPFLAGS) $<
 
 .f.o:
-	$(FC) $(EXTRA_FCFLAGS) $(FCFLAGS) $(INC) $<
+	$(FC) $(EXTRA_FCFLAGS) $(FCFLAGS) -I$(INCMOD) $<
 
