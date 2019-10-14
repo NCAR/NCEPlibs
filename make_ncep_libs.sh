@@ -69,9 +69,9 @@ if [ -z $APP ] ; then APP=0; fi #APP is an optional argument
 
 # For back compatability, allow APP to be 0 (global) or 1 (all)
 if [ "$APP" == "0" ]; then
-  $APP = "global"
+  APP="global"
 elif [ "$APP" == "1" ]; then
-  $APP = "all"
+  APP="all"
 fi
 
 # Ensure value ($2) of variable ($1) is contained in list of validvalues ($3)
