@@ -11,6 +11,7 @@ ARFLAGS=
 
 $(LIB): $(LIB)(process_4dot2.o) $(LIB)(grib2_all_tables_module.o) $(LIB)(gdtsec3.o)  \
         $(LIB)(g2sec4_temp1.o) $(LIB)(g2sec4_temp11.o) $(LIB)(g2sec4_temp12.o)
+	cp params_grib2_tbl_new $(INCMOD)
 
 $(LIB)(process_4dot2.o): process_4dot2.c
 	$(CC) -O3 -c $(CFLAGS) $<
