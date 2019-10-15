@@ -29,6 +29,7 @@ C$$$
 C - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
       INTEGER NTHREADS, TID, OMP_GET_NUM_THREADS,OMP_GET_THREAD_NUM
 C     Obtain thread number
+#if OPENMP == 1
 #ifdef LINUX
 !$OMP PARALLEL PRIVATE(TID)
       TID = OMP_GET_THREAD_NUM()
@@ -41,6 +42,8 @@ C     Obtain thread number
 #else
       NCPUS=NUM_PARTHDS()
 #endif
-
+#else
+      NCPUS=1
+#endif
       RETURN
       END
