@@ -182,7 +182,9 @@ cp -v ${MACROS_FILE}.${SYSTEM}.${COMPILER} ${MACROS_FILE}
 #--------------------------------------------------------------
 # Copy library source to BUILD_DIR and build
 #--------------------------------------------------------------
-export OPENMP=${OPENMP}
+if [ "$OPENMP" == "1" ]; then
+  export OPENMP=${OPENMP}
+fi
 rsync -a macros.make Makefile src ${BUILD_DIR}
 cd ${BUILD_DIR}
 if [ "$APP" == "all" ]; then
