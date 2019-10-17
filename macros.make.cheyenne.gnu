@@ -10,8 +10,10 @@ CC         = gcc
 
 ifeq ($(OPENMP),1)
   OMPFLAGS= -fopenmp
+  OMPCPPFLAGS= -DOPENMP
 else
   OMPFLAGS=
+  OMPCPPFLAGS=
 endif
 
 # Number of parallel tasks for gmake
@@ -50,7 +52,7 @@ SIGIO_FFLAGS  = $(OMPFLAGS) -O0 -g -fbacktrace -ffree-form -fconvert=big-endian 
 SIGIO_ARFLAGS = crvs
 
 # Flags for sp library
-SP_FFLAGS  = $(OMPFLAGS) -O3 -fdefault-real-8 -fconvert=big-endian -cpp -DLINUX -fPIC
+SP_FFLAGS  = $(OMPFLAGS) -O3 -fdefault-real-8 -fconvert=big-endian -cpp -DLINUX -fPIC $(OMPCPPFLAGS)
 SP_ARFLAGS = -ruv
 
 # Flags for w3emc library
