@@ -23,8 +23,16 @@ GMAKEMINUSJ = -j24
 BACIO_FFLAGS  = $(OMPFLAGS) -O3 -xHOST -traceback -fPIC
 BACIO_CFLAGS  = $(OMPFLAGS) -O3 -DUNDERSCORE -DLINUX -fPIC
 
+# Flags for g2 library
+G2_FFLAGS  = $(OMPFLAGS) -O3 -c -fp-model source -ftz -assume byterecl -convert big_endian -heap-arrays
+G2_CFLAGS  = $(OMPFLAGS) -O3 -I${JASPER_INC} -I${PNG_INC} -DLINUX
+
+# Flags for g2tmpl library
+G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -c -free -fp-model source -ftz -assume byterecl -convert big_endian -heap-arrays
+G2TMPL_CFLAGS  = $(OMPFLAGS) -O3 -c -DUNDERSCORE
+
 # Flags for gfsio library
-GFSIO_FFLAGS  = $(OMPFLAGS) -traceback -g -xHOST -convert big_endian -assume byterecl  -I$(INCMOD) -FR -fPIC
+GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -free -fp-model source -ftz -assume byterecl -convert big_endian -heap-arrays
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
@@ -63,3 +71,7 @@ W3EMC_ARFLAGS = ruv
 W3NCO_FFLAGS  = $(OMPFLAGS) -O0 -g -r8 -fixed -fPIC
 W3NCO_CFLAGS  = $(OMPFLAGS) -O0 -DLINUX
 W3NCO_ARFLAGS = -ruv
+
+# Flags for wrfio library
+WRFIO_FFLAGS   = $(OMPFLAGS) -O3 -free -fp-model source -ftz -assume byterecl -convert big_endian -heap-arrays
+WRFIO_ARFLAGS  = ru
