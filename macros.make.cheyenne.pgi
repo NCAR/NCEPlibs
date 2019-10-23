@@ -7,6 +7,7 @@ ARFLAGS    =
 FC         = mpif90
 FCserial   = pgfortran
 CC         = pgcc
+CCP        = cpp
 
 ifeq ($(OPENMP),1)
   OMPFLAGS= -mp
@@ -23,8 +24,16 @@ GMAKEMINUSJ = -j24
 BACIO_FFLAGS  = $(OMPFLAGS) -O3 -traceback -fPIC
 BACIO_CFLAGS  = $(OMPFLAGS) -O3 -DLINUX -fPIC
 
+# Flags for g2 library
+G2_FFLAGS  = $(OMPFLAGS) -O3 -c -Kieee -pc 64 -byteswapio -DLINUX 
+G2_CFLAGS  = $(OMPFLAGS) -c -DLINUX -I${JASPER_INC} -I${PNG_INC}
+
+# Flags for g2tmpl library
+G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -c -Mfree -Kieee -pc 64 -byteswapio -DLINUX
+G2TMPL_CFLAGS  = $(OMPFLAGS) -O3 -c -DLINUX
+
 # Flags for gfsio library
-GFSIO_FFLAGS  = $(OMPFLAGS) -g -traceback -byteswapio -I$(INCMOD) -Mfree -fPIC
+GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -Mfree -Kieee -pc 64 -byteswapio -DLINUX
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
@@ -63,3 +72,7 @@ W3EMC_ARFLAGS = ruv
 W3NCO_FFLAGS  = $(OMPFLAGS) -O0 -g -traceback -r8 -Mfixed -fPIC
 W3NCO_CFLAGS  = $(OMPFLAGS) -O0 -DLINUX
 W3NCO_ARFLAGS = -ruv
+
+# Flags for wrfio library
+WRFIO_FFLAGS   = $(OMPFLAGS) -O3 -Mfree -Kieee -pc 64 -byteswapio -w
+WRFIO_ARFLAGS  = ru
