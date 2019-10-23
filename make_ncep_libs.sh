@@ -137,7 +137,7 @@ fi
 # For generic Linux/MacOSX systems, check compiler environment
 # variables CC, F90, MPIF90, or use default values.
 #--------------------------------------------------------------
-if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ]; then
+if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ] && [ -z "${NOCOMPILERCHOICE}" ]; then
   echo "Checking environment variable CC to overwrite default 'gcc' ..."
   export CC=${CC:-gcc}
   echo "Checking environment variable F90 to overwrite default 'gfortran' ..."
@@ -161,7 +161,6 @@ if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ]; then
     esac
   done
 fi
-
 #--------------------------------------------------------------
 # For grib2 libraries, need JASPER and PNG library include files
 if [ "$APP" == "upp" ]; then
