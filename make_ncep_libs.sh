@@ -127,8 +127,8 @@ if [ "$APP" == "all" ]; then
   fi
 fi
 if [ "$APP" == "upp" ] || [ "$APP" == "sar" ]; then
-  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "hera" ]; then
-    echo "ERROR: upp and sar library sets are only supported for 'cheyenne', 'macosx', and 'hera' at this time"
+  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "hera" -a "${SYSTEM}" != "linux" ]; then
+    echo "ERROR: upp and sar library sets are only supported for 'cheyenne', 'macosx', 'hera', and linux at this time"
     exit 1
   fi
 fi
