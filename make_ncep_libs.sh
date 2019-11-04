@@ -109,6 +109,14 @@ if [ "$MPI" == "0" ]; then
   fi
 fi
 
+# Application check: if compiling for UPP, openmp must be disabled
+if [ "$OPENMP" == "1" ]; then
+  if [ "$APP" == "upp" ]; then
+    echo "ERROR: Openmp must be disabled (-o 0) when compiling libraries for UPP"
+    exit 1
+  fi
+fi
+
 # Make sure the destination directory exists
 if [ -d ${NCEPLIBS_DST_DIR} ]; then
   echo "Destination directory ${NCEPLIBS_DST_DIR} exists."
