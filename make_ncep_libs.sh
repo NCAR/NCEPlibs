@@ -230,7 +230,6 @@ if [ "$APP" == "all" ]; then
 elif [ "$MPI" == "0" ]; then
    make nompi || fail "An error occurred building the NCEP libraries"
 elif [ "$APP" == "upp" ]; then
-   echo "UPP libraries are not ready"
    make upp || fail "An error occurred building the NCEP libraries"
 elif [ "$APP" == "sar" ]; then
    make sar || fail "An error occurred building the NCEP libraries"
