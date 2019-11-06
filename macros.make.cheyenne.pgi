@@ -7,7 +7,7 @@ ARFLAGS    =
 FC         = mpif90
 FCserial   = pgfortran
 CC         = pgcc
-CCP        = cpp
+CPP        = cpp
 
 ifeq ($(OPENMP),1)
   OMPFLAGS= -mp
@@ -30,7 +30,7 @@ G2_CFLAGS  = $(OMPFLAGS) -c -DLINUX -I${JASPER_INC} -I${PNG_INC}
 
 # Flags for g2tmpl library
 G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -c -Mfree -Kieee -pc 64 -byteswapio -DLINUX
-G2TMPL_CFLAGS  = $(OMPFLAGS) -O3 -c -DLINUX
+G2TMPL_CFLAGS  = $(OMPFLAGS) -O3 -c -DLINUX -DUNDERSCORE
 
 # Flags for gfsio library
 GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -Mfree -Kieee -pc 64 -byteswapio -DLINUX
