@@ -7,7 +7,7 @@ nompi: core
 
 core:
 	$(MAKE) $(GMAKEMINUSJ) -C src/bacio/v2.0.1/src # GLOBAL,SAR,UPP
-	$(MAKE) $(GMAKEMINUSJ) -C src/ip/v3.0.0/sorc   # GLOBAL,SAR,UPP
+	$(MAKE) $(GMAKEMINUSJ) -C src/ip/v3.0.0/sorc   # GLOBAL,SAR
 	$(MAKE) $(MAKEMINUSJ) -C src/sp/v2.0.2/src     # GLOBAL,SAR,UPP
 	$(MAKE) $(MAKEMINUSJ) -C src/sigio/v2.0.1/src  # GLOBAL,SAR,UPP
 	$(MAKE) $(MAKEMINUSJ) -C src/w3emc/v2.2.0/src  # GLOBAL,SAR,UPP; Depends on sigio 2.0.1

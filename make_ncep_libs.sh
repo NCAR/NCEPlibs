@@ -171,7 +171,7 @@ if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ] && [ -z "${NOCOMPILERCH
 fi
 #--------------------------------------------------------------
 # For grib2 libraries, need JASPER and PNG library include files
-if [ "$APP" == "upp" ]; then
+if [ "$APP" == "upp" ] || [ "$APP" == "all" ]; then
   if [ -z "$JASPER_INC" ] || [ -z "$PNG_INC" ]; then
     echo "ERROR: You must define locations of JASPER (JASPER_INC) and PNG (PNG_INC) library include files to compile upp libraries"
     exit 1
@@ -183,7 +183,6 @@ if [ "$APP" == "upp" ]; then
   fi
 # For wrfio libraries, need NETCDF libs and includes
   if [ -z "$NETCDF_LIB" ] || [ -z "$NETCDF_INC" ]; then
-  echo here1
     if [ -z "$NETCDF" ]; then
       echo "ERROR: You must define the locations of NETCDF library (NETCDF_LIB) and include (NETCDF_INC) files to compile upp libraries"
       exit 1
@@ -200,6 +199,8 @@ if [ "$APP" == "upp" ]; then
   fi
 fi
 
+echo "NETCDF_INC=$NETCDF_INC"
+echo "NETCDF_LIB=$NETCDF_LIB"
 #--------------------------------------------------------------
 # Get the build root directory
 #--------------------------------------------------------------
