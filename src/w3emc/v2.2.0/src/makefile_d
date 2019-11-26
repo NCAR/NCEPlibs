@@ -4,7 +4,7 @@ include ../../../../macros.make
 
 version   = v2.2.0
 tarname   = w3emc
-precision = d
+precision = 4
 distdir   = $(tarname)_$(version)_$(precision)
 
 # Compiler substitution variables
@@ -16,7 +16,7 @@ RANLIB   = ranlib
 LIBDIR   = ../../../..
 
 # The library name
-LIBRARY = lib$(tarname)_$(precision).a
+LIBRARY = lib$(tarname)_$(version)_$(precision).a
 INCMOD  = ../../../../include
 
 # The file definitions. This include must occur before targets.

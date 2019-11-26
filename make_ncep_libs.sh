@@ -252,21 +252,6 @@ mkdir ${NCEPLIBS_DST_DIR}/include
 cp -av ${BUILD_DIR}/include/* ${NCEPLIBS_DST_DIR}/include/
 cp -av ${BUILD_DIR}/lib*.a ${NCEPLIBS_DST_DIR}/lib/
 
-#--------------------------------------------------------------
-# Include symlinks to simplified library names
-#--------------------------------------------------------------
-cd ${NCEPLIBS_DST_DIR}/lib
-for f in *; do
-  libname="${f%.*}"          #libname is the original library name minus the .a extension
-  fs="${libname%%_*}.a"      #fs is libname minus everything after the first underscore, with .a appended
-  if [ ! -f $fs ]; then
-    echo "Linking library $f to simplified name $fs"
-    ln -sf $f $fs
-  fi
-
-done
-
-echo
 if [ "$APP" == "upp" ]; then
    echo "To build UPP, set environment variable NCEPLIBS_DIR to ${NCEPLIBS_DST_DIR}"
 else

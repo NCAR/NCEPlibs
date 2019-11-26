@@ -65,11 +65,13 @@ SP_FFLAGS  = $(OMPFLAGS) -traceback -O3 -Mrecursive -i4 -r8 -byteswapio -Kieee -
 SP_ARFLAGS = -ruv
 
 # Flags for w3emc library
-W3EMC_FFLAGS = $(OMPFLAGS) -O2 -g -traceback -Mfixed -c -fPIC
+W3EMC_FFLAGS = $(OMPFLAGS) -O2 -g -traceback -r8 -Mfixed -c -fPIC
+W3EMC_4_FFLAGS = $(OMPFLAGS) -O3 -c -traceback -Kieee -pc 64 -byteswapio
 W3EMC_ARFLAGS = ruv
 
 # Flags for w3nco library
 W3NCO_FFLAGS  = $(OMPFLAGS) -O0 -g -traceback -r8 -Mfixed -fPIC
+W3NCO_4_FFLAGS  = $(OMPFLAGS) -O3 -c -traceback -Kieee -pc 64 -byteswapio
 W3NCO_CFLAGS  = $(OMPFLAGS) -O0 -DLINUX
 W3NCO_ARFLAGS = -ruv
 
