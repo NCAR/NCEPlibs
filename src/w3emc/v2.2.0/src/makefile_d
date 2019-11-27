@@ -4,7 +4,7 @@ include ../../../../macros.make
 
 version   = v2.2.0
 tarname   = w3emc
-precision = 4
+precision = d
 distdir   = $(tarname)_$(version)_$(precision)
 
 # Compiler substitution variables
