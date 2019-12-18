@@ -66,7 +66,7 @@ SP_ARFLAGS = -ruv
 
 # Flags for w3emc library
 W3EMC_FFLAGS = $(OMPFLAGS) -O2 -g -fdefault-real-8 -fbacktrace -ffixed-form -fno-range-check -c -fPIC
-W3EMC_4_FFLAGS = $(OMPFLAGS) -O3 -g -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
+W3EMC_4_FFLAGS = $(OMPFLAGS) -O3 -g -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check -c
 W3EMC_ARFLAGS = ruv
 
 # Flags for w3nco library
