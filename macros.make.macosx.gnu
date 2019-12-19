@@ -5,8 +5,8 @@ RM         = rm -f
 AR         = ar
 ARFLAGS    =
 FC         = mpif90
-FCserial   = gfortran
-CC         = gcc
+FCserial   = gfortran-5
+CC         = gcc-5
 CPP        = cpp
 
 ifeq ($(OPENMP),1)
@@ -66,10 +66,12 @@ SP_ARFLAGS = -ruv
 
 # Flags for w3emc library
 W3EMC_FFLAGS = $(OMPFLAGS) -O2 -g -fbacktrace -ffixed-form -fno-range-check -c -fPIC
+W3EMC_4_FFLAGS = $(OMPFLAGS) -O3 -g -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check -c
 W3EMC_ARFLAGS = ruv
 
 # Flags for w3nco library
 W3NCO_FFLAGS  = $(OMPFLAGS) -O0 -g -fdefault-real-8 -fno-range-check -ffixed-form -fPIC
+W3NCO_4_FFLAGS  = $(OMPFLAGS) -O3 -g -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
 W3NCO_CFLAGS  = $(OMPFLAGS) -O0 -DLINUX -fPIC
 W3NCO_ARFLAGS = -ruv
 
