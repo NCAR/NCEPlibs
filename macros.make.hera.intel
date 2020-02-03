@@ -64,11 +64,13 @@ SP_FFLAGS  = $(OMPFLAGS) -O3 -auto -i4 -r8 -convert big_endian -assume byterecl 
 SP_ARFLAGS = -ruv
 
 # Flags for w3emc library
-W3EMC_FFLAGS = $(OMPFLAGS) -O2 -g -traceback -fixed -c -fPIC
+W3EMC_FFLAGS = $(OMPFLAGS) -O2 -g -r8 -traceback -fixed -c -fPIC
+W3EMC_4_FFLAGS = $(OMPFLAGS) -O3 -c -fp-model source -ftz -assume byterecl -convert big_endian -heap-arrays
 W3EMC_ARFLAGS = ruv
 
 # Flags for w3nco library
 W3NCO_FFLAGS  = $(OMPFLAGS) -O0 -g -r8 -fixed -fPIC
+W3NCO_4_FFLAGS  = $(OMPFLAGS) -O3 -c -fp-model source -ftz -assume byterecl -convert big_endian -heap-arrays
 W3NCO_CFLAGS  = $(OMPFLAGS) -O0 -DLINUX
 W3NCO_ARFLAGS = -ruv
 
