@@ -4,9 +4,9 @@
 RM         = rm -f
 AR         = ar
 ARFLAGS    =
-FC         = mpif90
-FCserial   = gfortran-5
-CC         = gcc-5
+#FC         = mpif90
+#FCserial   = gfortran
+#CC         = gcc
 CPP        = cpp
 
 ifeq ($(OPENMP),1)
