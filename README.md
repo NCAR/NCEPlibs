@@ -29,7 +29,7 @@ module file of NEMSfv3gfs (NEMSFV3GFS_DIR/modulefiles/SYSTEM.COMPILER/fv3).
 
 The libraries are built and installed with
 
-> ./make_ncep_libs.sh -s MACHINE -c COMPILER -d NCEPLIBS_DIR -o OPENMP [-m mpi] [-a COMPILEALL]
+> ./make_ncep_libs.sh -s MACHINE -c COMPILER -d NCEPLIBS_DIR -o OPENMP [-m mpi] [-a APPLICATION]
 
 It is recommended to install the NCEPlibs into their own directory, which must be created before running the installer. Further information on the command line arguments can be obtained with
 

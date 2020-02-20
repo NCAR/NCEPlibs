@@ -42,7 +42,7 @@ validsystems=( hera theia jet gaea cheyenne macosx linux )
 validcompilers=( intel pgi gnu )
 validopenmpflags=( 0 1 )
 validmpiflags=( 0 1 )
-validapplicationflags=( global sar all )
+validapplicationflags=( global sar upp all )
 #--------------------------------------------------------------
 # Parse command line arguments
 #--------------------------------------------------------------
@@ -109,6 +109,14 @@ if [ "$MPI" == "0" ]; then
   fi
 fi
 
+# Application check: if compiling for UPP, openmp must be disabled
+if [ "$OPENMP" == "1" ]; then
+  if [ "$APP" == "upp" ]; then
+    echo "ERROR: Openmp must be disabled (-o 0) when compiling libraries for UPP"
+    exit 1
+  fi
+fi
+
 # Make sure the destination directory exists
 if [ -d ${NCEPLIBS_DST_DIR} ]; then
   echo "Destination directory ${NCEPLIBS_DST_DIR} exists."
@@ -120,15 +128,15 @@ fi
 #--------------------------------------------------------------
 # Check that all libraries are available on this platform
 #--------------------------------------------------------------
-if [ "$APP" == "1" ]; then
+if [ "$APP" == "all" ]; then
   if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "theia" -a "${SYSTEM}" != "hera" ]; then
-    echo "ERROR: Compile all option (-a 1) only supported for 'cheyenne', 'macosx', and 'hera' at this time"
+    echo "ERROR: Compile all option only supported for 'cheyenne', 'macosx', and 'hera' at this time"
     exit 1
   fi
 fi
 if [ "$APP" == "upp" ] || [ "$APP" == "sar" ]; then
-  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "hera" ]; then
-    echo "ERROR: upp and sar library sets are only supported for 'cheyenne', 'macosx', and 'hera' at this time"
+  if [ "${SYSTEM}" != "cheyenne" -a "${SYSTEM}" != "macosx" -a "${SYSTEM}" != "hera" -a "${SYSTEM}" != "linux" ]; then
+    echo "ERROR: upp and sar library sets are only supported for 'cheyenne', 'macosx', 'hera', and linux at this time"
     exit 1
   fi
 fi
@@ -137,7 +145,7 @@ fi
 # For generic Linux/MacOSX systems, check compiler environment
 # variables CC, F90, MPIF90, or use default values.
 #--------------------------------------------------------------
-if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ]; then
+if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ] && [ -z "${NOCOMPILERCHOICE}" ]; then
   echo "Checking environment variable CC to overwrite default 'gcc' ..."
   export CC=${CC:-gcc}
   echo "Checking environment variable F90 to overwrite default 'gfortran' ..."
@@ -161,7 +169,38 @@ if [ "${SYSTEM}" == "macosx" -o "${SYSTEM}" == "linux" ]; then
     esac
   done
 fi
+#--------------------------------------------------------------
+# For grib2 libraries, need JASPER and PNG library include files
+if [ "$APP" == "upp" ] || [ "$APP" == "all" ]; then
+  if [ -z "$JASPER_INC" ] || [ -z "$PNG_INC" ]; then
+    echo "ERROR: You must define locations of JASPER (JASPER_INC) and PNG (PNG_INC) library include files to compile upp libraries"
+    exit 1
+  elif [ ! -d "$JASPER_INC" ] || [ ! -d "$PNG_INC" ]; then
+    echo "ERROR: Check your include paths; one or both of these paths does not exist:"
+    echo $JASPER_INC
+    echo $PNG_INC
+    exit 2
+  fi
+# For wrfio libraries, need NETCDF libs and includes
+  if [ -z "$NETCDF_LIB" ] || [ -z "$NETCDF_INC" ]; then
+    if [ -z "$NETCDF" ]; then
+      echo "ERROR: You must define the locations of NETCDF library (NETCDF_LIB) and include (NETCDF_INC) files to compile upp libraries"
+      exit 1
+    else
+      export NETCDF_LIB="$NETCDF/lib"
+      export NETCDF_INC="$NETCDF/include"
+    fi
+  fi
+  if [ ! -d "$NETCDF/lib" ] || [ ! -d "$NETCDF/include" ]; then
+    echo "ERROR: Check your NETCDF location; one or both of these paths does not exist:"
+    echo $NETCDF/lib
+    echo $NETCDF/include
+    exit 2
+  fi
+fi
 
+echo "NETCDF_INC=$NETCDF_INC"
+echo "NETCDF_LIB=$NETCDF_LIB"
 #--------------------------------------------------------------
 # Get the build root directory
 #--------------------------------------------------------------
@@ -192,8 +231,7 @@ if [ "$APP" == "all" ]; then
 elif [ "$MPI" == "0" ]; then
    make nompi || fail "An error occurred building the NCEP libraries"
 elif [ "$APP" == "upp" ]; then
-   echo "UPP libraries are not yet supported"
-   fail "An error occurred building the NCEP libraries"
+   make upp || fail "An error occurred building the NCEP libraries"
 elif [ "$APP" == "sar" ]; then
    make sar || fail "An error occurred building the NCEP libraries"
 else
@@ -214,7 +252,6 @@ mkdir ${NCEPLIBS_DST_DIR}/include
 cp -av ${BUILD_DIR}/include/* ${NCEPLIBS_DST_DIR}/include/
 cp -av ${BUILD_DIR}/lib*.a ${NCEPLIBS_DST_DIR}/lib/
 
-echo
 if [ "$APP" == "upp" ]; then
    echo "To build UPP, set environment variable NCEPLIBS_DIR to ${NCEPLIBS_DST_DIR}"
 else

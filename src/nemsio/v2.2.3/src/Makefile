@@ -23,7 +23,6 @@ $(LIB):	$(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
 	mkdir -vp $(INCMOD)
 	mv -v *.mod $(INCMOD)
-	rm -vf *.o
 
 clean:
 	mkdir -p $(INCMOD)

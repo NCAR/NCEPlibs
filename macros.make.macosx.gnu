@@ -7,6 +7,7 @@ ARFLAGS    =
 #FC         = mpif90
 #FCserial   = gfortran
 #CC         = gcc
+CPP        = cpp
 
 ifeq ($(OPENMP),1)
   OMPFLAGS= -fopenmp
@@ -23,8 +24,16 @@ GMAKEMINUSJ = -j24
 BACIO_FFLAGS  = $(OMPFLAGS) -O3 -fbacktrace -fPIC
 BACIO_CFLAGS  = $(OMPFLAGS) -O3 -DUNDERSCORE -DMACOSX -fPIC
 
+# Flags for g2 library
+G2_FFLAGS  = $(OMPFLAGS) -c -O3 -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
+G2_CFLAGS  = $(OMPFLAGS) -O3 -g -I${JASPER_INC} -I${PNG_INC} -DLINUX
+
+# Flags for g2tmpl library
+G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -ffree-form
+G2TMPL_CFLAGS  = $(OMPFLAGS) -O3 -g -DUNDERSCORE
+
 # Flags for gfsio library
-GFSIO_FFLAGS  = $(OMPFLAGS) -fbacktrace -g -O3 -fconvert=big-endian -I$(INCMOD) -ffree-form -fPIC
+GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -ffree-form -ffree-line-length-none -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
@@ -57,9 +66,15 @@ SP_ARFLAGS = -ruv
 
 # Flags for w3emc library
 W3EMC_FFLAGS = $(OMPFLAGS) -O2 -g -fbacktrace -ffixed-form -fno-range-check -c -fPIC
+W3EMC_4_FFLAGS = $(OMPFLAGS) -O3 -g -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check -c
 W3EMC_ARFLAGS = ruv
 
 # Flags for w3nco library
 W3NCO_FFLAGS  = $(OMPFLAGS) -O0 -g -fdefault-real-8 -fno-range-check -ffixed-form -fPIC
+W3NCO_4_FFLAGS  = $(OMPFLAGS) -O3 -g -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
 W3NCO_CFLAGS  = $(OMPFLAGS) -O0 -DLINUX -fPIC
 W3NCO_ARFLAGS = -ruv
+
+# Flags for wrfio library
+WRFIO_FFLAGS   = $(OMPFLAGS) -ffree-form -ftree-vectorize -funroll-loops -fconvert=big-endian -frecord-marker=4
+WRFIO_ARFLAGS  = ru

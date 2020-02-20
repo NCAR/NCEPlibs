@@ -6,9 +6,17 @@
 #
 include ../../../../macros.make
  
+version   = v2.0.6
+tarname   = w3nco
+precision = 4
+distdir   = $(tarname)_$(version)_$(precision)
+
+LN     = ln -sf
 FC     = $(FCserial)
-LIB    = ../../../../libw3nco_d.a
-FFLAGS = $(W3NCO_FFLAGS)
+LIBDIR = ../../../../
+LIB    = lib$(tarname)_$(version)_$(precision).a
+LIB2   = lib$(tarname)_$(precision).a
+FFLAGS = $(W3NCO_4_FFLAGS)
 AFLAGS = $(W3NCO_ARFLAGS)
 CFLAGS = $(W3NCO_CFLAGS)
 SRCS   = $(wildcard *.f *.c)
@@ -20,8 +28,9 @@ OBJS   = $(addsuffix .o, $(basename $(SRCS)))
 %.o: %.c
 	$(CC) -c $(CFLAGS) $<
 
-$(LIB): $(OBJS)
+$(LIBDIR)/$(LIB): $(OBJS)
 	ar $(AFLAGS) $@ $^
+	cd $(LIBDIR) && $(LN) $(LIB) $(LIB2)
 
 clean:
 	$(RM) *.o *.mod $(LIB)
