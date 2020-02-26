@@ -25,20 +25,20 @@ BACIO_FFLAGS  = $(OMPFLAGS) -O3 -fbacktrace -fPIC
 BACIO_CFLAGS  = $(OMPFLAGS) -O3 -DUNDERSCORE -DLINUX -fPIC
 
 # Flags for g2 library
-G2_FFLAGS  = $(OMPFLAGS) -c -O3 -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
+G2_FFLAGS  = $(OMPFLAGS) -c -O3 -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check -fbacktrace
 G2_CFLAGS  = $(OMPFLAGS) -O3 -g -I${JASPER_INC} -I${PNG_INC} -DLINUX
 
 # Flags for g2tmpl library
-G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -ffree-form
+G2TMPL_FFLAGS  = $(OMPFLAGS) -O3 -ffree-form -fbacktrace
 G2TMPL_CFLAGS  = $(OMPFLAGS) -O3 -g -DUNDERSCORE
 
 # Flags for gfsio library
-GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -ffree-form -ffree-line-length-none -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check
+GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -ffree-form -ffree-line-length-none -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check -fbacktrace
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
-IP_FFLAGS     = $(OMPFLAGS) -O3 -fdefault-real-8 -fPIC
-IP_FPPFLAGS   = -cpp -DLSIZE=d
+IP_FFLAGS     = $(OMPFLAGS) -ffree-form -ffree-line-length-none -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -DCOMMCODE -DLINUX -DUPPLITTLEENDIAN  -fno-range-check -O3 -c
+IP_FPPFLAGS   = -cpp -DLSIZE=4
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library

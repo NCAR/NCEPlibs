@@ -38,7 +38,7 @@ GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
 IP_FFLAGS     = $(OMPFLAGS) -O3 -fdefault-real-8 -fPIC
-IP_FPPFLAGS   = -cpp -DLSIZE=d
+IP_FPPFLAGS   = -cpp -DLSIZE=4
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library
