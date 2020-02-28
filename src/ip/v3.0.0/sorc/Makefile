@@ -19,7 +19,7 @@ installdir     = $(prefix)/$(distdir)
 
 # Compiler substitution variables
 FC       = $(FCserial)
-FCFLAGS  = $(IP_FFLAGS) -c
+FCFLAGS  = $(IP_FFLAGS)
 FPPFLAGS  = $(IP_FPPFLAGS)
 AR       = ar
 ARFLAGS  = crvs
@@ -74,8 +74,8 @@ include make.dependencies
 
 # Suffix rules
 .SUFFIXES:
-.SUFFIXES: .F90 .f90 .o
-.F90.o:
+.SUFFIXES: .F .f90 .o
+.F.o:
 	$(FC) $(EXTRA_FCFLAGS) $(FCFLAGS) $(FPPFLAGS) $<
 
 .f90.o:
