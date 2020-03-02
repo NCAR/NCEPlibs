@@ -37,7 +37,7 @@ GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -ffree-form -ffree-line-length-none -fconvert
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
-IP_FFLAGS     = $(OMPFLAGS) -ffree-form -ffree-line-length-none -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -DCOMMCODE -DLINUX -DUPPLITTLEENDIAN  -fno-range-check -O3 -c
+IP_FFLAGS     = $(OMPFLAGS) -ffree-form -ffree-line-length-none -fconvert=big-endian -fno-second-underscore -frecord-marker=4 -fno-range-check -O3 -c
 IP_FPPFLAGS   = -cpp -DLSIZE=4
 IP_ARFLAGS    = -ruv
 

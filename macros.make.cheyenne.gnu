@@ -37,7 +37,7 @@ GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -ffree-form -ffree-line-length-none -fconvert
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
-IP_FFLAGS     = $(OMPFLAGS) -O3 -fdefault-real-8 -fPIC
+IP_FFLAGS     = $(OMPFLAGS) -O3 -c -ffree-form
 IP_FPPFLAGS   = -cpp -DLSIZE=4
 IP_ARFLAGS    = -ruv
 
