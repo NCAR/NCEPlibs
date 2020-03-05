@@ -37,8 +37,8 @@ GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -Mfree -Kieee -pc 64 -byteswapio -DLINUX
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
-IP_FFLAGS     = $(OMPFLAGS) -traceback -O3 -Mipa=fast -Kieee -r8 -i4 -fPIC
-IP_FPPFLAGS   = -DLSIZE=d
+IP_FFLAGS     = $(OMPFLAGS) -traceback -O3 -c -Mfree -Kieee
+IP_FPPFLAGS   = -DLSIZE=4
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library

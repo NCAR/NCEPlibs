@@ -1,5 +1,5 @@
 # The list of files that need preprocessing
-FPP_FILES = gdswzd_c.F90
+FPP_FILES = gdswzd_c.F
 
 # The list of regular source files
 FSRC_FILES = \
@@ -42,4 +42,4 @@ SRC_FILES = $(FSRC_FILES) \
 
 # The list of object files
 OBJ_FILES = ${FSRC_FILES:.f90=.o} \
-            ${FPP_FILES:.F90=.o}
+            ${FPP_FILES:.F=.o}

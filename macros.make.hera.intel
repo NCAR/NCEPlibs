@@ -36,8 +36,8 @@ GFSIO_FFLAGS  = $(OMPFLAGS) -O3 -c -free -fp-model source -ftz -assume byterecl 
 GFSIO_ARFLAGS = -rv
 
 # Flags for ip library
-IP_FFLAGS     = $(OMPFLAGS) -r8 -O3 -fp-model strict -ip -I. -convert little_endian -assume byterecl
-IP_FPPFLAGS   = -fpp -DLSIZE=d -save-temps
+IP_FFLAGS     = $(OMPFLAGS) -free  -fp-model source -ftz -assume byterecl -convert big_endian -heap-arrays -O3  -c
+IP_FPPFLAGS   = -fpp -DLSIZE=4 -save-temps
 IP_ARFLAGS    = -ruv
 
 # Flags for landsfcutil library
