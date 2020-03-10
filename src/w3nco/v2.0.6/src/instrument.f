@@ -12,6 +12,8 @@
 !
 ! PROGRAM HISTORY LOG:
 !   1998-07-16  IREDELL
+!   2019-09-17  FRIMEL and KALINA
+!               DECOMPOSE RETURN STATISTCS IF STATEMENT
 !
 ! USAGE:    CALL INSTRUMENT(K,KALL,TTOT,TMIN,TMAX)
 !   INPUT ARGUMENT LIST:
@@ -94,11 +96,27 @@
         ENDIF
 ! - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 !  RETURN STATISTICS
-        IF(KA.GE.1.AND.KA.LE.KMAX.AND.KALLS(KA).GT.0) THEN
-          KALL=KALLS(KA)
-          TTOT=TTOTS(KA)
-          TMIN=TMINS(KA)
-          TMAX=TMAXS(KA)
+
+!  FRIMEL and KALINA, DECOMPOSE THE IF STATEMENT, SAFER FOR SOME
+!  COMPILERS. Since No Guarantee on order of evaluation, and when
+!  evaluation will stop. 
+!  MAKE SURE KA.GE.1 BEFORE TESTING IF KALLS(KA).GT.0, ELSE
+!  MAY ENCOUNTER A RUNTIME SIGSEGV SEGEMENTATION FAULT.
+!  Since  Subscript #1 of the array KALLS can have value 0 which 
+!  is less than the lower bound of 1 
+!        IF(KA.GE.1.AND.KA.LE.KMAX.AND.KALLS(KA).GT.0) THEN
+        IF(KA.GE.1.AND.KA.LE.KMAX) THEN
+          IF(KALLS(KA).GT.0) THEN
+            KALL=KALLS(KA)
+            TTOT=TTOTS(KA)
+            TMIN=TMINS(KA)
+            TMAX=TMAXS(KA)
+          ELSE
+            KALL=0
+            TTOT=0
+            TMIN=0
+            TMAX=0
+          ENDIF
         ELSE
           KALL=0
           TTOT=0
