@@ -65,7 +65,7 @@ if [ -z $COMPILER ] ; then echo "ERROR: compiler argument is required"; echo""; 
 if [ -z $NCEPLIBS_DST_DIR ] ; then echo "ERROR: installdir argument is required"; echo""; usage; fi
 if [ -z $OPENMP ] ; then echo "ERROR: openmp argument is required"; echo""; usage; fi
 if [ -z $MPI ] ; then MPI=1; fi
-if [ -z $APP ] ; then APP=0; fi #APP is an optional argument
+if [ -z $APP ] ; then APP=1; fi #APP is an optional argument
 
 # For back compatability, allow APP to be 0 (global) or 1 (all)
 if [ "$APP" == "0" ]; then
