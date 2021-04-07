@@ -1,6 +1,8 @@
 # NOTE: THIS SOURCE CODE IS FROZEN AND NO LONGER MAINTAINED
 
-This is a fork of the NCEP NWP production libraries required to compile NCEP models. This is an unofficial, out-of-date version of the libraries maintained for back-compatibility with older versions of UPP with WRF (https://dtcenter.org/community-code/unified-post-processor-upp-wrf). **Funding to support WRF data in UPP has ended, and so this code is now frozen.** WRF users who need to make changes to this code in the future should consider forking this repository if they wish to make their changes available to the public.
+This is a fork of the NCEP NWP production libraries required to compile NCEP models. This is an unofficial, out-of-date version of the libraries maintained for back-compatibility with older versions of UPP with WRF (https://dtcenter.org/community-code/unified-post-processor-upp-wrf). **Funding to support WRF data in UPP has ended, and so this code is now frozen.** Users may find help from the community by posting to the WRF Users Forum: https://forum.mmm.ucar.edu/phpBB3/viewforum.php?f=98
+
+WRF users who need to make changes to this code in the future should consider forking this repository if they wish to make their changes available to the public.
 
 ## UFS Users should not use the code in this repository. Please refer to the official NCEPLIBS repository: https://github.com/NOAA-EMC/NCEPLIBS
 
